@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SambatWidget.UI", "SambatWidget.UI\SambatWidget.UI.csproj", "{E6887161-BB58-47B8-80D5-BADD4225CE4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6887161-BB58-47B8-80D5-BADD4225CE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6887161-BB58-47B8-80D5-BADD4225CE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6887161-BB58-47B8-80D5-BADD4225CE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6887161-BB58-47B8-80D5-BADD4225CE4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF4A1D10-C8D3-48E2-A0ED-12CEA8A4A573}
+	EndGlobalSection
+EndGlobal
