@@ -4,5 +4,44 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SambatWidget.UI"
     StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--  styles  -->
+            <Style
+                x:Key="CalendarCellTextStyle"
+                BasedOn="{StaticResource text-body}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSatDay}" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
+                        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsToday}" Value="True">
+                        <Setter Property="Foreground" Value="White" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style
+                x:Key="CalendarCellStyle"
+                BasedOn="{StaticResource btn-secondary}"
+                TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="0.5" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsToday}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource SuccessColor}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="CenterTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Fonts/Fonts.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

@@ -9,12 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\MaterialDesignIcons_Font.ttf" />
+    <None Remove="Resources\Fonts\Montserrat_Bold_Font.ttf" />
+    <None Remove="Resources\Fonts\Montserrat_Medium_Font.ttf" />
+    <None Remove="Resources\Fonts\Montserrat_Regular_Font.ttf" />
+    <None Remove="Resources\Fonts\Montserrat_SemiBold_Font.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SambatWidget.Core\SambatWidget.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\MaterialDesignIcons_Font.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat_Bold_Font.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat_Medium_Font.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat_Regular_Font.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat_SemiBold_Font.ttf" />
   </ItemGroup>
 
 </Project>

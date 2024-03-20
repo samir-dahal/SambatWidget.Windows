@@ -1,0 +1,73 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="TextColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="DangerColor">#bf616a</SolidColorBrush>
+    <SolidColorBrush x:Key="SuccessColor">#a3be8c</SolidColorBrush>
+    <SolidColorBrush x:Key="InfoColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="WarningColor">#d08770</SolidColorBrush>
+    <SolidColorBrush x:Key="MutedColor">#d8dee9</SolidColorBrush>
+    <SolidColorBrush x:Key="PasswordNumberColor">#88c0d0</SolidColorBrush>
+    <SolidColorBrush x:Key="PasswordSpecialColor">#d08770</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonColor">#d8dee9</SolidColorBrush>
+    <SolidColorBrush x:Key="InputPlaceholderColor">#7b88a1</SolidColorBrush>
+    <SolidColorBrush x:Key="DangerPressedColor">#953C44</SolidColorBrush>
+
+    <SolidColorBrush x:Key="BackgroundColor">#3b4252</SolidColorBrush>
+    <SolidColorBrush x:Key="SplashBackgroundColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledIconColor">#d8dee9</SolidColorBrush>
+    <SolidColorBrush x:Key="SeparatorColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="TouchColor">#81a1c1</SolidColorBrush>
+
+    <SolidColorBrush x:Key="BoxBorderColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="BoxHeaderTextColor">#81a1c1</SolidColorBrush>
+
+    <SolidColorBrush x:Key="TitleTextColor">#d8dee9</SolidColorBrush>
+    <SolidColorBrush x:Key="TitleEntryTextColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="TitleEntryPlaceholderColor">#606C82</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ListItemBorderColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="ListSectionBorderColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="ListSectionBorderBottomColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="ListHeaderTextColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="ListHeaderBackgroundColor">#2e3440</SolidColorBrush>
+
+    <SolidColorBrush x:Key="SliderThumbColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="SliderThumbBorderColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="SliderTrackMinColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="SliderTrackMaxColor">#2e3440</SolidColorBrush>
+
+    <SolidColorBrush x:Key="SwitchOnColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="SwitchThumbColor">#e5e9f0</SolidColorBrush>
+
+    <SolidColorBrush x:Key="StepperBackgroundColor">#4c566a</SolidColorBrush>
+    <SolidColorBrush x:Key="StepperForegroundColor">#e5e9f0</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ButtonPrimaryBackgroundColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonPrimaryBackgroundColorPressed">#4E769E</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonPrimaryBackgroundColorDisabled">#5C6C7B</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonPrimaryTextColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonPrimaryTextColorDisabled">#ACB5C5</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ButtonBackgroundColor">#4c566a</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackgroundColorPressed">#3A4251</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackgroundColorDisabled">#454951</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBorderColor">#5E6A82</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonTextColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonTextColorDisabled">#aaaaaa</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonTextColorOpacity">#99e5e9f0</SolidColorBrush>
+
+    <SolidColorBrush x:Key="FabColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="FabPressedColor">#81a1c1</SolidColorBrush>
+
+    <SolidColorBrush x:Key="TabBarBackgroundColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="TabBarItemColor">#e5e9f0</SolidColorBrush>
+    <SolidColorBrush x:Key="TabBarSelectedItemColor">#81a1c1</SolidColorBrush>
+
+    <SolidColorBrush x:Key="NavigationBarBackgroundColor">#2e3440</SolidColorBrush>
+    <SolidColorBrush x:Key="NavigationBarTextColor">#e5e9f0</SolidColorBrush>
+
+    <SolidColorBrush x:Key="HyperlinkColor">#81a1c1</SolidColorBrush>
+    <SolidColorBrush x:Key="FingerprintPhrase">#F08DC7</SolidColorBrush>
+    <SolidColorBrush x:Key="ScanningToggleModeTextColor">#80BDFF</SolidColorBrush>
+</ResourceDictionary>

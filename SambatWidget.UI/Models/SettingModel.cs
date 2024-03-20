@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace SambatWidget.UI.Models
 {
@@ -12,5 +8,10 @@ namespace SambatWidget.UI.Models
         public bool IsExpanded { get; set; }
         public bool LockPosition { get; set; }
         public bool AllowTransparency { get; set; }
+        public string Theme { get; set; }
+        public virtual void Save()
+        {
+            JsonSerializer.Serialize(this);
+        }
     }
 }

@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="{DynamicResource BackgroundColor}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,13 +25,41 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Sun" />
-            <TextBlock Grid.Column="1" Text="Mon" />
-            <TextBlock Grid.Column="2" Text="Tue" />
-            <TextBlock Grid.Column="3" Text="Wed" />
-            <TextBlock Grid.Column="4" Text="Thu" />
-            <TextBlock Grid.Column="5" Text="Fri" />
-            <TextBlock Grid.Column="6" Text="Sat" />
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Sun" />
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Mon" />
+            <TextBlock
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Tue" />
+            <TextBlock
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Wed" />
+            <TextBlock
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Thu" />
+            <TextBlock
+                Grid.Column="5"
+                HorizontalAlignment="Center"
+                Style="{StaticResource text-sm}"
+                Text="Fri" />
+            <TextBlock
+                Grid.Column="6"
+                HorizontalAlignment="Center"
+                helpers:Css.Class="text-bold text-danger text-sm"
+                Text="Sat" />
         </Grid>
         <ItemsControl Grid.Row="1" ItemsSource="{Binding WidgetCalendarViewModel.CalendarCells}">
             <ItemsControl.ItemsPanel>
@@ -45,7 +74,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Date}" />
+                    <Button Style="{StaticResource CalendarCellStyle}">
+                        <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Date}" />
+                    </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
