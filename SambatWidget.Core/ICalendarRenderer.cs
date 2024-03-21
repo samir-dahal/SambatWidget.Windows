@@ -5,7 +5,7 @@ namespace SambatWidget.Core
 {
     public interface ICalendarRenderer
     {
-        IEnumerable<WidgetCalendarCellModel> Render();
+        IEnumerable<WidgetCalendarCellModel> RenderToday();
         IEnumerable<WidgetCalendarCellModel> RenderNext();
         IEnumerable<WidgetCalendarCellModel> RenderPrevious();
         string GetConsecutiveEnglishYearsPair();

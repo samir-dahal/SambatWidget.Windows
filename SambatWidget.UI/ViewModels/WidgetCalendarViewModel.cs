@@ -16,7 +16,7 @@ namespace SambatWidget.UI.ViewModels
         }
         public void Init()
         {
-            Render(() => CalendarCells.AddRange(_calendarRenderer.Render()));
+            Render(() => CalendarCells.AddRange(_calendarRenderer.RenderToday()));
         }
         public void RenderNext()
         {

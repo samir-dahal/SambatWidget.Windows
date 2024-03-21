@@ -15,10 +15,30 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <TextBlock Style="{StaticResource text-semibold}" Text="{Binding WidgetHeaderViewModel.Header}" />
-            <TextBlock Style="{StaticResource text-sm}" Text="{Binding WidgetHeaderViewModel.SubHeader}" />
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    FontSize="12"
+                    Style="{StaticResource text-semibold}"
+                    Text="{Binding WidgetHeaderViewModel.Header}" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="11"
+                    Foreground="{StaticResource DangerPressedColor}"
+                    Style="{StaticResource text-sm}"
+                    Text="Kathmandu 07:48 PM"
+                    Visibility="{Binding ShowTimeZone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <TextBlock
+                Grid.Row="1"
+                Style="{StaticResource text-sm}"
+                Text="{Binding WidgetHeaderViewModel.SubHeader}" />
+        </Grid>
         <Button
             Grid.Column="1"
             BorderThickness="0"

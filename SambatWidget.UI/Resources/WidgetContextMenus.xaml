@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ContextMenu x:Key="WidgetContextMenu">
+        <MenuItem Command="{Binding ShowTodayCommand}" Header="Show Today" />
+        <MenuItem Command="{Binding WidgetContextMenuViewModel}" Header="Copy Today" />
+        <MenuItem
+            Command="{Binding WidgetContextMenuViewModel.LockPositionCommand}"
+            Header="Lock Position"
+            IsCheckable="True"
+            IsChecked="{Binding WidgetContextMenuViewModel.IsLocked}" />
+        <MenuItem
+            Command="{Binding WidgetContextMenuViewModel}"
+            Header="Allow Transparency"
+            IsCheckable="True" />
+        <MenuItem
+            Command="{Binding ToggleTimeZoneCommand}"
+            Header="Show Timezone"
+            IsCheckable="True"
+            IsChecked="{Binding ShowTimeZone}" />
+        <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowSettingCommand}" Header="Settings" />
+        <MenuItem Command="{Binding WidgetContextMenuViewModel.ExitCommand}" Header="Exit" />
+    </ContextMenu>
+</ResourceDictionary>

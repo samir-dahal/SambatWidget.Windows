@@ -29,6 +29,7 @@
             <controls:WidgetHeaderControl
                 Padding="5"
                 Background="{DynamicResource BackgroundColor}"
+                ContextMenu="{StaticResource WidgetContextMenu}"
                 Cursor="Hand" />
             <controls:WidgetCalendarControl
                 Grid.Row="1"

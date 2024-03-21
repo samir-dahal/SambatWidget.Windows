@@ -8,17 +8,16 @@ namespace SambatWidget.Core
 {
     public class BaseCalendarRenderer : ICalendarRenderer
     {
-        protected NepaliDate _todayNepDate;
         protected NepaliDate _carouselNepDate;
         private readonly List<WidgetCalendarCellModel> _calendarData;
         public BaseCalendarRenderer()
         {
-            _todayNepDate = NepaliDate.Now;
-            _carouselNepDate = _todayNepDate;
+            _carouselNepDate = NepaliDate.Now;
             _calendarData = new List<WidgetCalendarCellModel>();
         }
-        public IEnumerable<WidgetCalendarCellModel> Render()
+        public IEnumerable<WidgetCalendarCellModel> RenderToday()
         {
+            _carouselNepDate = NepaliDate.Now;
             return PrepareCalendarDataGrid(Populate());
         }
         public IEnumerable<WidgetCalendarCellModel> RenderNext()
@@ -53,7 +52,7 @@ namespace SambatWidget.Core
         public int? GetRemainingDays()
         {
             //do not show remaining days tooltip on other month if not started yet
-            if (_todayNepDate != _carouselNepDate)
+            if (NepaliDate.Now != _carouselNepDate)
             {
                 return null;
             }
@@ -70,7 +69,7 @@ namespace SambatWidget.Core
         }
         public string GetWeekDayName() => _carouselNepDate.EnglishDate.DayOfWeek.ToString();
         public string GetShortWeekDayName() => _carouselNepDate.EnglishDate.ToString("ddd");
-        public bool IsToday() => _todayNepDate == _carouselNepDate;
+        public bool IsToday() => NepaliDate.Now == _carouselNepDate;
         public string GetFormattedEnglishDate() => _carouselNepDate.EnglishDate.ToString("dd MMM, yyyy");
         public string GetFormattedNepaliDate()
         {
@@ -83,16 +82,20 @@ namespace SambatWidget.Core
         private List<WidgetCalendarCellModel> Populate()
         {
             _calendarData.Clear();
-            bool isTodayYearMonth = _carouselNepDate.Month == _todayNepDate.Month && _carouselNepDate.Year == _todayNepDate.Year;
+            bool isTodayYearMonth = _carouselNepDate.Month == NepaliDate.Now.Month && _carouselNepDate.Year == NepaliDate.Now.Year;
             for (int i = 1; i <= _carouselNepDate.MonthEndDay; i++)
             {
                 _calendarData.Add(new WidgetCalendarCellModel
                 {
                     Date = i,
-                    IsToday = i == _todayNepDate.Day && isTodayYearMonth,
+                    IsToday = i == NepaliDate.Now.Day && isTodayYearMonth,
                 });
             }
             return _calendarData;
+        }
+        private IEnumerable<WidgetCalendarCellModel> Render()
+        {
+            return PrepareCalendarDataGrid(Populate());
         }
         private int GetThisMonthStartDateIndex()
         {

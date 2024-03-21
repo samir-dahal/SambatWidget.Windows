@@ -42,6 +42,7 @@
                 <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
                 <!--<ResourceDictionary Source="/Resources/Themes/DarkTheme.xaml" />-->
                 <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="/Resources/WidgetContextMenus.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

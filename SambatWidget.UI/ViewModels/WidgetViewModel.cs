@@ -9,17 +9,20 @@ namespace SambatWidget.UI.ViewModels
         private readonly ICalendarRenderer _calendarRenderer;
         public WidgetHeaderViewModel WidgetHeaderViewModel { get; }
         public WidgetCalendarViewModel WidgetCalendarViewModel { get; }
+        public WidgetContextMenuViewModel WidgetContextMenuViewModel { get; }
         public WidgetViewModel()
         {
             _calendarRenderer = new WidgetCalendarRenderer();
             WidgetHeaderViewModel = new WidgetHeaderViewModel(_calendarRenderer);
             WidgetCalendarViewModel = new WidgetCalendarViewModel(_calendarRenderer);
+            WidgetContextMenuViewModel = new WidgetContextMenuViewModel();
         }
-        [ObservableProperty]
-        bool showTimeZone = App.Setting.ShowTimeZone;
 
         [ObservableProperty]
         bool isExpanded = App.Setting.IsExpanded;
+
+        [ObservableProperty]
+        bool showTimeZone = App.Setting.ShowTimeZone;
 
         [RelayCommand]
         private void RenderNext()
@@ -37,16 +40,21 @@ namespace SambatWidget.UI.ViewModels
             Render(WidgetCalendarViewModel.Init);
         }
         [RelayCommand]
-        private void ToggleTimeZone()
-        {
-            ShowTimeZone = !ShowTimeZone;
-            App.Setting.ShowTimeZone = ShowTimeZone;
-        }
-        [RelayCommand]
         private void ToggleExpand()
         {
-            IsExpanded = !IsExpanded;
-            App.Setting.IsExpanded = IsExpanded;
+            Render(() =>
+            {
+                IsExpanded = !IsExpanded;
+                App.Setting.IsExpanded = IsExpanded;
+            });
+        }
+        [RelayCommand]
+        private void ToggleTimeZone()
+        {
+            Render(() =>
+            {
+                App.Setting.ShowTimeZone = ShowTimeZone;
+            });
         }
         private void Render(Action renderAction)
         {
