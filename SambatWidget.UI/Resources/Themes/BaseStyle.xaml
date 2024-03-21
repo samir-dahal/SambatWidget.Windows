@@ -5,7 +5,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
         <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
     </Style>
-    <Style BasedOn="{StaticResource text-default}" TargetType="{x:Type TextBlock}" />
+    <!--<Style BasedOn="{StaticResource text-default}" TargetType="{x:Type TextBlock}" />-->
     <Style
         x:Key="text-sm"
         BasedOn="{StaticResource text-default}"
@@ -86,6 +86,37 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource TitleTextColor}" />
+    </Style>
+    <!--  tab style  -->
+    <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border
+                        Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1,1,1,0"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentSite"
+                            Margin="10,2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ContentSource="Header"
+                            RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryColor}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TitleTextColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     <!--  platform style  -->
     <Style TargetType="Window">

@@ -4,6 +4,7 @@ namespace SambatWidget.UI.Helpers
 {
     public static class ThemeManager
     {
+        private static string currentTheme = "/Resources/Themes/LightTheme.xaml";
         public static IDictionary<string, string> Themes
         {
             get
@@ -26,9 +27,12 @@ namespace SambatWidget.UI.Helpers
         }
         private static void AddResourceDictionary(string src)
         {
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri($"/Resources/Themes/BaseStyle.xaml", UriKind.Relative) });
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri($"/Resources/Themes/{src}", UriKind.Relative) });
+            var themeResource = App.Current.Resources.MergedDictionaries[3];
+            if (themeResource != null)
+            {
+                themeResource.MergedDictionaries.Clear();
+                themeResource.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri($"/Resources/Themes/{src}", UriKind.Relative) });
+            }
         }
     }
 }

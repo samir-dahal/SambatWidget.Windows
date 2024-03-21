@@ -29,7 +29,7 @@
                     Margin="5,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="11"
-                    Foreground="{StaticResource DangerPressedColor}"
+                    Foreground="{StaticResource BoxHeaderTextColor}"
                     Style="{StaticResource text-sm}"
                     Text="Kathmandu 07:48 PM"
                     Visibility="{Binding ShowTimeZone, Converter={StaticResource BooleanToVisibilityConverter}}" />

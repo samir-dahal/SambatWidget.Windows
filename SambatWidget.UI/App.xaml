@@ -40,9 +40,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Fonts/Fonts.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
-                <!--<ResourceDictionary Source="/Resources/Themes/DarkTheme.xaml" />-->
-                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
                 <ResourceDictionary Source="/Resources/WidgetContextMenus.xaml" />
+                <ResourceDictionary x:Name="ThemeResource">
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

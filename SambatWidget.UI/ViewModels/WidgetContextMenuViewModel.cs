@@ -22,7 +22,7 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void ShowSetting()
         {
-            
+            new SettingWindow().ShowDialog();
         }
         [RelayCommand]
         private void Exit()
