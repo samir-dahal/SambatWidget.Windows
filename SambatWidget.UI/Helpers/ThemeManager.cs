@@ -23,7 +23,6 @@ namespace SambatWidget.UI.Helpers
         {
             AddResourceDictionary($"{themeName}.xaml");
             App.Setting.Theme = themeName;
-            App.Setting.Save();
         }
         private static void AddResourceDictionary(string src)
         {

@@ -16,7 +16,10 @@ namespace SambatWidget.UI.ViewModels
             WidgetCalendarViewModel = new WidgetCalendarViewModel(_calendarRenderer);
         }
         [ObservableProperty]
-        bool showTimeZone;
+        bool showTimeZone = App.Setting.ShowTimeZone;
+
+        [ObservableProperty]
+        bool isExpanded = App.Setting.IsExpanded;
 
         [RelayCommand]
         private void RenderNext()
@@ -38,6 +41,12 @@ namespace SambatWidget.UI.ViewModels
         {
             ShowTimeZone = !ShowTimeZone;
             App.Setting.ShowTimeZone = ShowTimeZone;
+        }
+        [RelayCommand]
+        private void ToggleExpand()
+        {
+            IsExpanded = !IsExpanded;
+            App.Setting.IsExpanded = IsExpanded;
         }
         private void Render(Action renderAction)
         {

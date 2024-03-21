@@ -20,7 +20,7 @@
     <Window.DataContext>
         <vm:WidgetViewModel />
     </Window.DataContext>
-    <Border Padding="2">
+    <Border>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -30,7 +30,10 @@
                 Padding="5"
                 Background="{DynamicResource BackgroundColor}"
                 Cursor="Hand" />
-            <controls:WidgetCalendarControl Grid.Row="1" Background="{DynamicResource BackgroundColor}" />
+            <controls:WidgetCalendarControl
+                Grid.Row="1"
+                Background="{DynamicResource BackgroundColor}"
+                Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
     </Border>
 </Window>

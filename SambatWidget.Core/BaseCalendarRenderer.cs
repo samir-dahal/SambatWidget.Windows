@@ -72,7 +72,14 @@ namespace SambatWidget.Core
         public string GetShortWeekDayName() => _carouselNepDate.EnglishDate.ToString("ddd");
         public bool IsToday() => _todayNepDate == _carouselNepDate;
         public string GetFormattedEnglishDate() => _carouselNepDate.EnglishDate.ToString("dd MMM, yyyy");
-        public string GetFormattedNepaliDate() => $"{_carouselNepDate.MonthName} {_carouselNepDate.Day}, {_carouselNepDate.Year}";
+        public string GetFormattedNepaliDate()
+        {
+            if (!IsToday())
+            {
+                return $"{_carouselNepDate.MonthName} 1, {_carouselNepDate.Year}";
+            }
+            return $"{_carouselNepDate.MonthName} {_carouselNepDate.Day}, {_carouselNepDate.Year}";
+        }
         private List<WidgetCalendarCellModel> Populate()
         {
             _calendarData.Clear();

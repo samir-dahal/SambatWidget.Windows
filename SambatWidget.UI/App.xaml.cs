@@ -1,6 +1,5 @@
-﻿using SambatWidget.UI.Models;
-using System.Configuration;
-using System.Data;
+﻿using SambatWidget.UI.Helpers;
+using SambatWidget.UI.Models;
 using System.Windows;
 
 namespace SambatWidget.UI
@@ -10,17 +9,16 @@ namespace SambatWidget.UI
     /// </summary>
     public partial class App : Application
     {
-        private static SettingModel _setting;
-        public static SettingModel Setting
+        public static SettingModel Setting { get; private set; }
+        protected override void OnStartup(StartupEventArgs e)
         {
-            get
-            {
-                if(_setting is null)
-                {
-                    _setting = new SettingModel();
-                }
-                return _setting;
-            }
+            Setting = AppHelpers.LoadAppSettings();
+            base.OnStartup(e);
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            App.Setting.Save();
+            base.OnExit(e);
         }
     }
 }
