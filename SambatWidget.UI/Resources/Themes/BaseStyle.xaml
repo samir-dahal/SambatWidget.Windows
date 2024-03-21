@@ -25,6 +25,12 @@
         <Setter Property="FontFamily" Value="{StaticResource FontBold}" />
     </Style>
     <Style
+        x:Key="text-semibold"
+        BasedOn="{StaticResource text-default}"
+        TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+    </Style>
+    <Style
         x:Key="text-body"
         BasedOn="{StaticResource text-default}"
         TargetType="TextBlock">

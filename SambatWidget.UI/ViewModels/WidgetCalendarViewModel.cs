@@ -1,17 +1,17 @@
-﻿using MvvmHelpers;
-using SambatWidget.Core;
+﻿using SambatWidget.Core;
 using SambatWidget.Core.Models;
+using SambatWidget.UI.Helpers;
 
 namespace SambatWidget.UI.ViewModels
 {
-    public class WidgetCalendarViewModel
+    public partial class WidgetCalendarViewModel
     {
         private readonly ICalendarRenderer _calendarRenderer;
-        public ObservableRangeCollection<WidgetCalendarCellModel> CalendarCells { get; }
+        public WpfObservableRangeCollection<WidgetCalendarCellModel> CalendarCells { get; }
         public WidgetCalendarViewModel(ICalendarRenderer renderer)
         {
             _calendarRenderer = renderer;
-            CalendarCells = new ObservableRangeCollection<WidgetCalendarCellModel>();
+            CalendarCells = new WpfObservableRangeCollection<WidgetCalendarCellModel>();
             Init();
         }
         public void Init()

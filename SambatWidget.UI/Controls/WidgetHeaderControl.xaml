@@ -3,13 +3,35 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SambatWidget.UI.Helpers"
     xmlns:local="clr-namespace:SambatWidget.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel>
-        <TextBlock Text="{Binding WidgetHeaderViewModel.Header}" />
-        <TextBlock Text="{Binding WidgetHeaderViewModel.SubHeader}" />
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <TextBlock Style="{StaticResource text-semibold}" Text="{Binding WidgetHeaderViewModel.Header}" />
+            <TextBlock Style="{StaticResource text-sm}" Text="{Binding WidgetHeaderViewModel.SubHeader}" />
+        </StackPanel>
+        <Button
+            Grid.Column="1"
+            BorderThickness="0"
+            Command="{Binding RenderPreviousCommand}"
+            Style="{StaticResource btn-secondary}">
+            <TextBlock FontFamily="{StaticResource MaterialIcons}" Text="{x:Static helpers:MaterialIconFont.ChevronLeft}" />
+        </Button>
+        <Button
+            Grid.Column="2"
+            BorderThickness="0"
+            Command="{Binding RenderNextCommand}"
+            Style="{StaticResource btn-secondary}">
+            <TextBlock FontFamily="{StaticResource MaterialIcons}" Text="{x:Static helpers:MaterialIconFont.ChevronRight}" />
+        </Button>
+    </Grid>
 </UserControl>

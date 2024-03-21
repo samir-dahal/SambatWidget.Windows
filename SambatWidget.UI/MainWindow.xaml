@@ -8,20 +8,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SambatWidget.UI.ViewModels"
     Title="Sambat Widget"
-    Width="800"
+    Width="250"
     Height="450"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    ShowInTaskbar="True"
+    SizeToContent="Height"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Window.DataContext>
         <vm:WidgetViewModel />
     </Window.DataContext>
-    <Border Padding="5">
+    <Border Padding="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:WidgetHeaderControl />
-            <controls:WidgetCalendarControl Grid.Row="1" />
+            <controls:WidgetHeaderControl
+                Padding="5"
+                Background="{DynamicResource BackgroundColor}"
+                Cursor="Hand" />
+            <controls:WidgetCalendarControl Grid.Row="1" Background="{DynamicResource BackgroundColor}" />
         </Grid>
     </Border>
 </Window>

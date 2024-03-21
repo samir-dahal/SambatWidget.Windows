@@ -40,7 +40,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Fonts/Fonts.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
-                <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/DarkTheme.xaml" />
+                <!--<ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

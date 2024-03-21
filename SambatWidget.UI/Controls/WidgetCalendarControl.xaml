@@ -58,7 +58,7 @@
             <TextBlock
                 Grid.Column="6"
                 HorizontalAlignment="Center"
-                helpers:Css.Class="text-bold text-danger text-sm"
+                helpers:Css.Class="text-sm text-semibold text-danger"
                 Text="Sat" />
         </Grid>
         <ItemsControl Grid.Row="1" ItemsSource="{Binding WidgetCalendarViewModel.CalendarCells}">
