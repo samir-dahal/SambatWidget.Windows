@@ -9,6 +9,7 @@
     Title="Settings"
     Width="400"
     Height="450"
+    Background="{DynamicResource BackgroundColor}"
     ResizeMode="CanMinimize"
     mc:Ignorable="d">
     <Window.DataContext>
@@ -24,7 +25,7 @@
                 <TabItem Header="User Interface" Style="{StaticResource TabItemStyle}">
                     <Border Padding="5">
                         <StackPanel>
-                            <TextBlock Text="Theme" />
+                            <TextBlock Style="{StaticResource text-body}" Text="Theme" />
                             <ComboBox
                                 DisplayMemberPath="Key"
                                 ItemsSource="{Binding Themes}"
@@ -36,8 +37,8 @@
                 <TabItem Header="Timezone" Style="{StaticResource TabItemStyle}">
                     <Border Padding="5">
                         <StackPanel>
-                            <TextBlock Text="Timezone" />
-                            <ComboBox />
+                            <TextBlock Style="{StaticResource text-body}" Text="Timezone" />
+                            <ComboBox IsEditable="True" ItemsSource="{Binding TimeZones}" SelectedItem="{Binding SelectedTimeZone}" />
                         </StackPanel>
                     </Border>
                 </TabItem>
@@ -48,7 +49,8 @@
                 Margin="0,5,0,0"
                 HorizontalAlignment="Right"
                 Command="{Binding ApplyChangesCommand}"
-                Content="Apply Changes" />
+                Content="Apply Changes"
+                Style="{StaticResource btn-primary}" />
         </Grid>
     </Border>
 </Window>

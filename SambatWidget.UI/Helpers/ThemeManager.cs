@@ -4,7 +4,6 @@ namespace SambatWidget.UI.Helpers
 {
     public static class ThemeManager
     {
-        private static string currentTheme = "/Resources/Themes/LightTheme.xaml";
         public static IDictionary<string, string> Themes
         {
             get
@@ -24,6 +23,17 @@ namespace SambatWidget.UI.Helpers
         {
             AddResourceDictionary($"{themeName}.xaml");
             App.Setting.Theme = themeName;
+        }
+        public static void ApplyDefaultTheme()
+        {
+            if (string.IsNullOrWhiteSpace(App.Setting.Theme) || !Themes.Values.Contains(App.Setting.Theme))
+            {
+                ApplyTheme("LightTheme");
+            }
+            else
+            {
+                ApplyTheme(App.Setting.Theme);
+            }
         }
         private static void AddResourceDictionary(string src)
         {

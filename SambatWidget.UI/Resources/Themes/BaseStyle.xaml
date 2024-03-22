@@ -91,6 +91,7 @@
     <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
@@ -183,6 +184,7 @@
         <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonPrimaryTextColor}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -197,6 +199,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonTextColorOpacity}" />
         <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
     </Style>
     <Style
         x:Key="btn-danger"
@@ -207,6 +210,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonPrimaryTextColor}" />
         <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
     </Style>
 
 </ResourceDictionary>

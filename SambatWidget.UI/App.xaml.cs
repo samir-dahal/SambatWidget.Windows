@@ -13,6 +13,7 @@ namespace SambatWidget.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             Setting = AppHelpers.LoadAppSettings();
+            ThemeManager.ApplyDefaultTheme();
             base.OnStartup(e);
         }
         protected override void OnExit(ExitEventArgs e)

@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SambatWidget.Core;
+using SambatWidget.Core.Models;
 using SambatWidget.UI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SambatWidget.UI.ViewModels
 {
@@ -15,16 +12,41 @@ namespace SambatWidget.UI.ViewModels
         public IDictionary<string, string> Themes { get; set; } = ThemeManager.Themes;
 
         [ObservableProperty]
-        KeyValuePair<string, string> selectedTheme;
+        KeyValuePair<string, string> selectedTheme = ThemeManager.Themes.FirstOrDefault(x => x.Value == App.Setting.Theme);
+
+        public WpfObservableRangeCollection<string> TimeZones { get; }
+
+        [ObservableProperty]
+        string selectedTimeZone = App.Setting.TimeZone;
+        public SettingViewModel()
+        {
+            TimeZones = new WpfObservableRangeCollection<string>();
+            GetTimeZonesAsync().FireAndForget();
+        }
 
         [RelayCommand]
         private void ApplyChanges()
+        {
+            SaveUIChanges();
+            SaveTimeZoneChanges();
+            App.Setting.Save();
+        }
+        private void SaveUIChanges()
         {
             if (selectedTheme.Key != previousTheme.Key)
             {
                 ThemeManager.ApplyTheme(selectedTheme.Value);
                 previousTheme = selectedTheme;
             }
+        }
+        private void SaveTimeZoneChanges()
+        {
+            App.Setting.TimeZone = SelectedTimeZone;
+        }
+        private async Task GetTimeZonesAsync()
+        {
+            var timeZones = await WorldClock.GetTimeZonesAsync();
+            TimeZones.AddRange(timeZones);
         }
     }
 }
