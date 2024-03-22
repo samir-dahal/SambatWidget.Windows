@@ -13,7 +13,7 @@
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
-    ShowInTaskbar="True"
+    ShowInTaskbar="False"
     SizeToContent="Height"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -27,6 +27,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <controls:WidgetHeaderControl
+                x:Name="WidgetHeader"
                 Padding="5"
                 Background="{DynamicResource BackgroundColor}"
                 ContextMenu="{StaticResource WidgetContextMenu}"

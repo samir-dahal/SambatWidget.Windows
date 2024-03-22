@@ -13,13 +13,17 @@ namespace SambatWidget.UI
     public partial class MainWindow : Window
     {
         private readonly WidgetViewModel _vm;
+        private readonly WidgetObserver _widgetObserver;
         private readonly WidgetWindowSetting _settings;
+        public bool IsMouseDown { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
             _settings = new WidgetWindowSetting();
             _vm = DataContext as WidgetViewModel;
             Loaded += MainWindow_Loaded;
+            _widgetObserver = new WidgetObserver(this, _vm);
+            _widgetObserver.Observe();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -32,7 +36,9 @@ namespace SambatWidget.UI
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            IsMouseDown = true;
             base.OnMouseLeftButtonDown(e);
+            _settings.SetPosition(this.Left, this.Top);
             if (!App.Setting.LockPosition)
             {
                 this.DragMove();
@@ -42,14 +48,16 @@ namespace SambatWidget.UI
         {
             base.OnRenderSizeChanged(sizeInfo);
             this.CalculateWindowMoveOffset();
-            if (!_settings.IsFirstLoad)
+            if (_settings.IsFirstLoad)
             {
-                _settings.SetPosition(this.Left, this.Top);
+                _settings.IsFirstLoad = false;
+                return;
             }
-            _settings.IsFirstLoad = false;
+            _settings.SetPosition(this.Left, this.Top);
         }
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
+            IsMouseDown = false;
             base.OnMouseLeftButtonUp(e);
             if (_settings.Position.X == this.Left && _settings.Position.Y == this.Top)
             {
@@ -57,7 +65,6 @@ namespace SambatWidget.UI
             }
             this.CalculateWindowMoveOffset();
             _settings.SetPosition(this.Left, this.Top);
-            Debug.WriteLine($"## Position: {_settings.Position}");
         }
     }
 }

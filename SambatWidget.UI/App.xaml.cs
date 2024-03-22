@@ -10,6 +10,7 @@ namespace SambatWidget.UI
     public partial class App : Application
     {
         public static SettingModel Setting { get; private set; }
+        public static bool IsShuttingDown { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             Setting = AppHelpers.LoadAppSettings();
@@ -18,6 +19,7 @@ namespace SambatWidget.UI
         }
         protected override void OnExit(ExitEventArgs e)
         {
+            IsShuttingDown = true;
             App.Setting.Save();
             base.OnExit(e);
         }

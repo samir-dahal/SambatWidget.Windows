@@ -7,7 +7,10 @@ namespace SambatWidget.UI.ViewModels
     {
         [ObservableProperty]
         bool isLocked = App.Setting.LockPosition;
-        
+
+        [ObservableProperty]
+        bool globalPosition = App.Setting.AllowGlobalPosition;
+
         [RelayCommand]
         private void CopyToday()
         {
@@ -27,7 +30,13 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void Exit()
         {
+            App.IsShuttingDown = true;
             App.Current.Shutdown();
+        }
+        [RelayCommand]
+        private void ToggleGlobalPosition()
+        {
+            App.Setting.AllowGlobalPosition = GlobalPosition;
         }
     }
 }

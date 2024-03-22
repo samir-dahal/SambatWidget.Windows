@@ -11,7 +11,6 @@ namespace SambatWidget.UI.Models
     {
         public bool IsFirstLoad { get; set; } = true;
         public Point Position { get; set; }
-        public double WindowHeight { get; set; }
         public WidgetWindowSetting()
         {
             Position = App.Setting.Position;

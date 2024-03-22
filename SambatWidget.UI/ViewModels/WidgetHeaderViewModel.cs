@@ -16,6 +16,9 @@ namespace SambatWidget.UI.ViewModels
 
         [ObservableProperty]
         string subHeader;
+
+        [ObservableProperty]
+        string timeZone;
         public void InitHeader()
         {
             //use the abbreviated day of week name to reduce the space when timezone is enabled
@@ -29,6 +32,12 @@ namespace SambatWidget.UI.ViewModels
                 engHeader = _calendarRenderer.GetFormattedEnglishDate();
             }
             SubHeader = $"{_calendarRenderer.GetFormattedNepaliDate()}  |  {engHeader}";
+            InitTimeZone();
+        }
+        public void InitTimeZone()
+        {
+            var timeZoneData = WorldClock.GetTimeZoneData(App.Setting.TimeZone);
+            TimeZone = timeZoneData?.ToString();
         }
     }
 }

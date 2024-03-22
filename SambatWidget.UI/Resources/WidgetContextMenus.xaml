@@ -12,6 +12,11 @@
             Header="Allow Transparency"
             IsCheckable="True" />
         <MenuItem
+            Command="{Binding WidgetContextMenuViewModel.ToggleGlobalPositionCommand}"
+            Header="Allow Global Position"
+            IsCheckable="True"
+            IsChecked="{Binding WidgetContextMenuViewModel.GlobalPosition}" />
+        <MenuItem
             Command="{Binding ToggleTimeZoneCommand}"
             Header="Show Timezone"
             IsCheckable="True"
