@@ -42,14 +42,16 @@
             Grid.Column="1"
             BorderThickness="0"
             Command="{Binding RenderPreviousCommand}"
-            Style="{StaticResource btn-secondary}">
+            Style="{StaticResource btn-secondary}"
+            Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock FontFamily="{StaticResource MaterialIcons}" Text="{x:Static helpers:MaterialIconFont.ChevronLeft}" />
         </Button>
         <Button
             Grid.Column="2"
             BorderThickness="0"
             Command="{Binding RenderNextCommand}"
-            Style="{StaticResource btn-secondary}">
+            Style="{StaticResource btn-secondary}"
+            Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock FontFamily="{StaticResource MaterialIcons}" Text="{x:Static helpers:MaterialIconFont.ChevronRight}" />
         </Button>
     </Grid>

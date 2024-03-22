@@ -24,6 +24,12 @@ namespace SambatWidget.UI.ViewModels
         [ObservableProperty]
         bool showTimeZone = App.Setting.ShowTimeZone;
 
+        [ObservableProperty]
+        bool allowTransparency = App.Setting.AllowTransparency; //for context menu checkbox
+
+        [ObservableProperty]
+        bool isTransparent = App.Setting.AllowTransparency && !App.Setting.IsExpanded;
+
         [RelayCommand]
         private void RenderNext()
         {
@@ -46,6 +52,7 @@ namespace SambatWidget.UI.ViewModels
             {
                 IsExpanded = !IsExpanded;
                 App.Setting.IsExpanded = IsExpanded;
+                DecideWhenToTransparent();
             });
         }
         [RelayCommand]
@@ -55,6 +62,20 @@ namespace SambatWidget.UI.ViewModels
             {
                 App.Setting.ShowTimeZone = ShowTimeZone;
             });
+        }
+        [RelayCommand]
+        private void ToggleTransparency()
+        {
+            IsTransparent = AllowTransparency;
+            App.Setting.AllowTransparency = AllowTransparency;
+            DecideWhenToTransparent();
+        }
+        private void DecideWhenToTransparent()
+        {
+            if (App.Setting.AllowTransparency)
+            {
+                IsTransparent = !IsExpanded;
+            }
         }
         private void Render(Action renderAction)
         {

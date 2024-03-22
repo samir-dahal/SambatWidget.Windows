@@ -8,9 +8,10 @@
             IsCheckable="True"
             IsChecked="{Binding WidgetContextMenuViewModel.IsLocked}" />
         <MenuItem
-            Command="{Binding WidgetContextMenuViewModel}"
+            Command="{Binding ToggleTransparencyCommand}"
             Header="Allow Transparency"
-            IsCheckable="True" />
+            IsCheckable="True"
+            IsChecked="{Binding AllowTransparency}" />
         <MenuItem
             Command="{Binding WidgetContextMenuViewModel.ToggleGlobalPositionCommand}"
             Header="Allow Global Position"
@@ -21,6 +22,11 @@
             Header="Show Timezone"
             IsCheckable="True"
             IsChecked="{Binding ShowTimeZone}" />
+        <MenuItem
+            Command="{Binding WidgetContextMenuViewModel.ToggleAutoRunAtStartupCommand}"
+            Header="Autorun at startup"
+            IsCheckable="True"
+            IsChecked="{Binding WidgetContextMenuViewModel.AutoRunAtStartup}" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowSettingCommand}" Header="Settings" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ExitCommand}" Header="Exit" />
     </ContextMenu>

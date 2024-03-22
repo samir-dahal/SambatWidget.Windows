@@ -29,9 +29,9 @@
             <controls:WidgetHeaderControl
                 x:Name="WidgetHeader"
                 Padding="5"
-                Background="{DynamicResource BackgroundColor}"
                 ContextMenu="{StaticResource WidgetContextMenu}"
-                Cursor="Hand" />
+                Cursor="Hand"
+                Style="{StaticResource TransparentHeaderStyle}" />
             <controls:WidgetCalendarControl
                 Grid.Row="1"
                 Background="{DynamicResource BackgroundColor}"

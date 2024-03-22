@@ -1,7 +1,6 @@
 ﻿using SambatWidget.UI.Helpers;
 using SambatWidget.UI.Models;
 using SambatWidget.UI.ViewModels;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,14 +29,21 @@ namespace SambatWidget.UI
         {
             this.HideWindowFromAltTab();
             this.SetWindowsPos();
+            InitPosition();
+            _settings.SetLoaded();
+        }
+
+        private void InitPosition()
+        {
             this.Left = App.Setting.Position.X;
             this.Top = App.Setting.Position.Y;
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            IsMouseDown = true;
             base.OnMouseLeftButtonDown(e);
+            IsMouseDown = true;
+            _settings.SetWindowHeight(this.ActualHeight);
             _settings.SetPosition(this.Left, this.Top);
             if (!App.Setting.LockPosition)
             {
@@ -46,23 +52,48 @@ namespace SambatWidget.UI
         }
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            base.OnRenderSizeChanged(sizeInfo);
-            this.CalculateWindowMoveOffset();
-            if (_settings.IsFirstLoad)
+            if (!_settings.Loaded) return;
+            if (!_settings.DefaultPositionSet)
             {
-                _settings.IsFirstLoad = false;
+                _settings.SetDefaultPosition(InitPosition);
                 return;
             }
-            _settings.SetPosition(this.Left, this.Top);
+            base.OnRenderSizeChanged(sizeInfo);
+            try
+            {
+                if (!_vm.IsExpanded)
+                {
+                    this.Top = (App.Setting.Position.Y + _settings.WindowHeight) - this.WidgetHeader.ActualHeight;
+                }
+                else
+                {
+                    this.Top = (App.Setting.Position.Y + this.WidgetHeader.ActualHeight) - this.ActualHeight;
+                }
+            }
+            finally
+            {
+                CalculateAndSaveWindowMoveOffset();
+            }
         }
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            IsMouseDown = false;
             base.OnMouseLeftButtonUp(e);
-            if (_settings.Position.X == this.Left && _settings.Position.Y == this.Top)
+            try
             {
-                _vm.ToggleExpandCommand.Execute(null);
+                IsMouseDown = false;
+                if (_settings.Position.X == this.Left && _settings.Position.Y == this.Top)
+                {
+                    _vm.ToggleExpandCommand.Execute(null);
+                }
             }
+            finally
+            {
+                CalculateAndSaveWindowMoveOffset();
+            }
+
+        }
+        private void CalculateAndSaveWindowMoveOffset()
+        {
             this.CalculateWindowMoveOffset();
             _settings.SetPosition(this.Left, this.Top);
         }

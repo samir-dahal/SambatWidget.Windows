@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SambatWidget.UI.Helpers;
 
 namespace SambatWidget.UI.ViewModels
 {
@@ -11,12 +12,15 @@ namespace SambatWidget.UI.ViewModels
         [ObservableProperty]
         bool globalPosition = App.Setting.AllowGlobalPosition;
 
+        [ObservableProperty]
+        bool autoRunAtStartup = App.Setting.AutoRunAtStartup;
+
         [RelayCommand]
         private void CopyToday()
         {
-            
+
         }
-        
+
         [RelayCommand]
         private void LockPosition()
         {
@@ -37,6 +41,19 @@ namespace SambatWidget.UI.ViewModels
         private void ToggleGlobalPosition()
         {
             App.Setting.AllowGlobalPosition = GlobalPosition;
+        }
+        [RelayCommand]
+        private void ToggleAutoRunAtStartup()
+        {
+            if (AutoRunAtStartup)
+            {
+                AppHelpers.EnableAutoStartAtStartup();
+            }
+            else
+            {
+                AppHelpers.DisableAutoStartAtStartup();
+            }
+            App.Setting.AutoRunAtStartup = AutoRunAtStartup;
         }
     }
 }

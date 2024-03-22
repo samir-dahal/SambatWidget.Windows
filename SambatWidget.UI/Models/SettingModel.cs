@@ -10,6 +10,7 @@ namespace SambatWidget.UI.Models
         public bool LockPosition { get; set; }
         public bool AllowTransparency { get; set; }
         public string TimeZone { get; set; }
+        public bool AutoRunAtStartup { get; set; }
         public bool AllowGlobalPosition { get; set; } = true;
         public string Theme { get; set; } = "LightTheme";
         public Point Position { get; set; }

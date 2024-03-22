@@ -33,8 +33,13 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="CenterTextStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Center" />
+            <Style x:Key="TransparentHeaderStyle" TargetType="UserControl">
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsTransparent}" Value="True">
+                        <Setter Property="Background" Value="#01000000" />
+                    </DataTrigger>
+                </Style.Triggers>
             </Style>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
