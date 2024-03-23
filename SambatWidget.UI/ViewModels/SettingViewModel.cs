@@ -15,12 +15,14 @@ namespace SambatWidget.UI.ViewModels
         KeyValuePair<string, string> selectedTheme = ThemeManager.Themes.FirstOrDefault(x => x.Value == App.Setting.Theme);
 
         public WpfObservableRangeCollection<string> TimeZones { get; }
+        public DateConverterViewModel DateConverterViewModel { get; }
 
         [ObservableProperty]
         string selectedTimeZone = App.Setting.TimeZone;
         public SettingViewModel()
         {
             TimeZones = new WpfObservableRangeCollection<string>();
+            DateConverterViewModel = new DateConverterViewModel();
             GetTimeZonesAsync().FireAndForget();
         }
 

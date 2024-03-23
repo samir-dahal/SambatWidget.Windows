@@ -87,6 +87,13 @@
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource TitleTextColor}" />
     </Style>
+    <!--  text box style  -->
+    <Style x:Key="text-box" TargetType="TextBox">
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+    </Style>
     <!--  tab style  -->
     <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
@@ -133,8 +140,8 @@
             <Setter.Value>
                 <DataTemplate>
                     <TextBlock
+                        FontFamily="{StaticResource FontSemiBold}"
                         FontSize="14"
-                        FontWeight="SemiBold"
                         Foreground="{DynamicResource TextColor}"
                         Text="{Binding}" />
                 </DataTemplate>

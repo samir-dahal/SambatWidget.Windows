@@ -14,6 +14,8 @@
 		<None Remove="Resources\Fonts\Montserrat_Medium_Font.ttf" />
 		<None Remove="Resources\Fonts\Montserrat_Regular_Font.ttf" />
 		<None Remove="Resources\Fonts\Montserrat_SemiBold_Font.ttf" />
+		<None Remove="Resources\Images\nepal.png" />
+		<None Remove="Resources\Images\usa.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -30,6 +32,8 @@
 		<Resource Include="Resources\Fonts\Montserrat_Medium_Font.ttf" />
 		<Resource Include="Resources\Fonts\Montserrat_Regular_Font.ttf" />
 		<Resource Include="Resources\Fonts\Montserrat_SemiBold_Font.ttf" />
+		<Resource Include="Resources\Images\nepal.png" />
+		<Resource Include="Resources\Images\usa.png" />
 	</ItemGroup>
 
 	<ItemGroup>

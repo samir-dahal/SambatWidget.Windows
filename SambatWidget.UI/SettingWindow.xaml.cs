@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SambatWidget.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,22 @@ namespace SambatWidget.UI
         public SettingWindow()
         {
             InitializeComponent();
+        }
+
+        private void EnglishDateTxtBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(DataContext is SettingViewModel vm)
+            {
+                vm.DateConverterViewModel.ConvertToNepaliCommand.Execute(null);
+            }
+        }
+
+        private void NepaliDateTxtBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (DataContext is SettingViewModel vm)
+            {
+                vm.DateConverterViewModel.ConvertToEnglishCommand.Execute(null);
+            }
         }
     }
 }

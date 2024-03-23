@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SambatWidget.UI.Helpers"
     xmlns:local="clr-namespace:SambatWidget.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SambatWidget.UI.ViewModels"
@@ -38,11 +39,61 @@
                     <Border Padding="5">
                         <StackPanel>
                             <TextBlock Style="{StaticResource text-body}" Text="Timezone" />
-                            <ComboBox IsEditable="True" ItemsSource="{Binding TimeZones}" SelectedItem="{Binding SelectedTimeZone}" />
+                            <ComboBox
+                                IsEditable="True"
+                                ItemsSource="{Binding TimeZones}"
+                                SelectedItem="{Binding SelectedTimeZone}" />
                         </StackPanel>
                     </Border>
                 </TabItem>
-                <TabItem Header="Date Converter" Style="{StaticResource TabItemStyle}" />
+                <TabItem Header="Date Converter" Style="{StaticResource TabItemStyle}">
+                    <Border Padding="5">
+                        <StackPanel>
+                            <!--  eng to nep  -->
+                            <StackPanel>
+                                <Image
+                                    Width="50"
+                                    Margin="0,3"
+                                    HorizontalAlignment="Left"
+                                    Source="/Resources/Images/usa.png"
+                                    Stretch="Uniform" />
+                                <TextBlock Style="{StaticResource text-body}" Text="Enter English Date Here" />
+                                <TextBox
+                                    x:Name="EnglishDateTxtBox"
+                                    Margin="0,5"
+                                    Style="{StaticResource text-box}"
+                                    Text="{Binding DateConverterViewModel.EnglishDate, UpdateSourceTrigger=PropertyChanged}"
+                                    TextChanged="EnglishDateTxtBox_TextChanged" />
+                                <TextBox
+                                    Background="{DynamicResource BorderColor}"
+                                    Style="{StaticResource text-box}"
+                                    Text="{Binding DateConverterViewModel.ConvertedNepaliDate}"
+                                    TextAlignment="Center" />
+                            </StackPanel>
+                            <!--  nep to eng  -->
+                            <StackPanel Margin="0,20,0,0">
+                                <Image
+                                    Width="35"
+                                    Margin="0,3"
+                                    HorizontalAlignment="Left"
+                                    Source="/Resources/Images/nepal.png"
+                                    Stretch="Uniform" />
+                                <TextBlock Style="{StaticResource text-body}" Text="Enter Nepali Date Here" />
+                                <TextBox
+                                    x:Name="NepaliDateTxtBox"
+                                    Margin="0,5"
+                                    Style="{StaticResource text-box}"
+                                    Text="{Binding DateConverterViewModel.NepaliDate, UpdateSourceTrigger=PropertyChanged}"
+                                    TextChanged="NepaliDateTxtBox_TextChanged" />
+                                <TextBox
+                                    Background="{DynamicResource BorderColor}"
+                                    Style="{StaticResource text-box}"
+                                    Text="{Binding DateConverterViewModel.ConvertedEnglishDate}"
+                                    TextAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </TabItem>
             </TabControl>
             <Button
                 Grid.Row="1"
