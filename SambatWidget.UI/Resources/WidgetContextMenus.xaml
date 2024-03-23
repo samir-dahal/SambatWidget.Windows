@@ -1,7 +1,28 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ContextMenu x:Key="WidgetContextMenu">
         <MenuItem Command="{Binding ShowTodayCommand}" Header="Show Today" />
-        <MenuItem Command="{Binding WidgetContextMenuViewModel}" Header="Copy Today" />
+        <MenuItem Header="Copy Today">
+            <MenuItem
+                Command="{Binding WidgetContextMenuViewModel.CopyTodayCommand}"
+                CommandParameter="{Binding WidgetContextMenuViewModel.DefaultFormat}"
+                Header="{Binding WidgetContextMenuViewModel.DefaultFormat}" />
+            <MenuItem
+                Command="{Binding WidgetContextMenuViewModel.CopyTodayCommand}"
+                CommandParameter="{Binding WidgetContextMenuViewModel.DashedFormat}"
+                Header="{Binding WidgetContextMenuViewModel.DashedFormat}" />
+            <MenuItem
+                Command="{Binding WidgetContextMenuViewModel.CopyTodayCommand}"
+                CommandParameter="{Binding WidgetContextMenuViewModel.LongDateFormat}"
+                Header="{Binding WidgetContextMenuViewModel.LongDateFormat}" />
+            <MenuItem
+                Command="{Binding WidgetContextMenuViewModel.CopyTodayCommand}"
+                CommandParameter="{Binding WidgetContextMenuViewModel.UnicodeFormat}"
+                Header="{Binding WidgetContextMenuViewModel.UnicodeFormat}" />
+            <MenuItem
+                Command="{Binding WidgetContextMenuViewModel.CopyTodayCommand}"
+                CommandParameter="{Binding WidgetContextMenuViewModel.LongUnicodeFormat}"
+                Header="{Binding WidgetContextMenuViewModel.LongUnicodeFormat}" />
+        </MenuItem>
         <MenuItem
             Command="{Binding WidgetContextMenuViewModel.LockPositionCommand}"
             Header="Lock Position"

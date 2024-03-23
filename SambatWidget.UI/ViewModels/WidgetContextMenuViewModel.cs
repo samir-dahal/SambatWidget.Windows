@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NepDate;
 using SambatWidget.UI.Helpers;
 
 namespace SambatWidget.UI.ViewModels
@@ -15,10 +16,29 @@ namespace SambatWidget.UI.ViewModels
         [ObservableProperty]
         bool autoRunAtStartup = App.Setting.AutoRunAtStartup;
 
-        [RelayCommand]
-        private void CopyToday()
-        {
+        [ObservableProperty]
+        string defaultFormat;
 
+        [ObservableProperty]
+        string longDateFormat;
+
+        [ObservableProperty]
+        string unicodeFormat;
+
+        [ObservableProperty]
+        string longUnicodeFormat;
+
+        [ObservableProperty]
+        string dashedFormat;
+        public WidgetContextMenuViewModel()
+        {
+            InitCopyTodayContextMenu();
+        }
+
+        [RelayCommand]
+        private void CopyToday(string dateFormat)
+        {
+            AppHelpers.CopyToClipboard(dateFormat);
         }
 
         [RelayCommand]
@@ -54,6 +74,14 @@ namespace SambatWidget.UI.ViewModels
                 AppHelpers.DisableAutoStartAtStartup();
             }
             App.Setting.AutoRunAtStartup = AutoRunAtStartup;
+        }
+        public void InitCopyTodayContextMenu()
+        {
+            DefaultFormat = NepaliDate.Now.ToString();
+            LongDateFormat = NepaliDate.Now.ToLongDateString();
+            UnicodeFormat = NepaliDate.Now.ToUnicodeString();
+            LongUnicodeFormat = NepaliDate.Now.ToLongDateUnicodeString();
+            DashedFormat = NepaliDate.Now.ToString(separator: NepDate.Core.Enums.Separators.Dash);
         }
     }
 }

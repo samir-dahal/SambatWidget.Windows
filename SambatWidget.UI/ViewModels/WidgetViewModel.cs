@@ -43,7 +43,11 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void ShowToday()
         {
-            Render(WidgetCalendarViewModel.Init);
+            Render(() =>
+            {
+                WidgetCalendarViewModel.Init();
+                WidgetContextMenuViewModel.InitCopyTodayContextMenu();
+            });
         }
         [RelayCommand]
         private void ToggleExpand()
