@@ -52,7 +52,7 @@ namespace SambatWidget.Core
         public int? GetRemainingDays()
         {
             //do not show remaining days tooltip on other month if not started yet
-            if (NepaliDate.Now != _carouselNepDate)
+            if (!IsToday())
             {
                 return null;
             }
@@ -119,6 +119,11 @@ namespace SambatWidget.Core
                 monthStartDateIndex++;
             }
             return cells;
+        }
+
+        public string GetMonthName()
+        {
+            return _carouselNepDate.MonthName.ToString();
         }
     }
 }

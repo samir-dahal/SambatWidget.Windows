@@ -25,7 +25,7 @@ namespace SambatWidget.UI.ViewModels
             Header = App.Setting.ShowTimeZone
                 ? _calendarRenderer.GetShortWeekDayName() 
                 : _calendarRenderer.GetWeekDayName();
-
+            
             string engHeader = _calendarRenderer.GetConsecutiveEnglishMonthsPair();
             if (!App.Setting.IsExpanded)
             {
@@ -37,7 +37,14 @@ namespace SambatWidget.UI.ViewModels
         public void InitTimeZone()
         {
             var timeZoneData = WorldClock.GetTimeZoneData(App.Setting.TimeZone);
-            TimeZone = timeZoneData?.ToString();
+            if (App.Setting.ShowTimeZoneOffset && !App.Setting.IsExpanded)
+            {
+                TimeZone = timeZoneData?.GetTimeZoneWithOffset();
+            }
+            else
+            {
+                TimeZone = timeZoneData?.ToString();
+            }
         }
     }
 }

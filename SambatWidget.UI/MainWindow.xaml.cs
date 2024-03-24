@@ -56,6 +56,7 @@ namespace SambatWidget.UI
             if (!_settings.DefaultPositionSet)
             {
                 _settings.SetDefaultPosition(InitPosition);
+                CalculateAndSaveWindowMoveOffset();
                 return;
             }
             base.OnRenderSizeChanged(sizeInfo);
@@ -91,6 +92,27 @@ namespace SambatWidget.UI
                 CalculateAndSaveWindowMoveOffset();
             }
 
+        }
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            base.OnPreviewMouseWheel(e);
+            _widgetObserver.RestartScrollTimer();
+            _widgetObserver.SetScrollDelta(e.Delta);
+        }
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            switch (e.Key)
+            {
+                case Key.Down:
+                case Key.Left:
+                    _vm.RenderPreviousCommand.Execute(null);
+                    break;
+                case Key.Up:
+                case Key.Right:
+                    _vm.RenderNextCommand.Execute(null);
+                    break;
+            }
         }
         private void CalculateAndSaveWindowMoveOffset()
         {

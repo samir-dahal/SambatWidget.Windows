@@ -18,7 +18,6 @@ namespace SambatWidget.UI.Helpers
                 };
             }
         }
-        public static string CurrentTheme => App.Setting.Theme;
         public static void ApplyTheme(string themeName)
         {
             AddResourceDictionary($"{themeName}.xaml");
@@ -37,12 +36,13 @@ namespace SambatWidget.UI.Helpers
         }
         private static void AddResourceDictionary(string src)
         {
-            var themeResource = App.Current.Resources.MergedDictionaries[3];
-            if (themeResource != null)
+            try
             {
+                var themeResource = App.Current.Resources.MergedDictionaries[3];
                 themeResource.MergedDictionaries.Clear();
                 themeResource.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri($"/Resources/Themes/{src}", UriKind.Relative) });
             }
+            catch { }
         }
     }
 }

@@ -43,6 +43,14 @@
                                 IsEditable="True"
                                 ItemsSource="{Binding TimeZones}"
                                 SelectedItem="{Binding SelectedTimeZone}" />
+                            <CheckBox
+                                Margin="0,5,0,0"
+                                Content="Show Offset"
+                                IsChecked="{Binding ShowTimeZoneOffset}" />
+                            <TextBlock
+                                Foreground="{DynamicResource MutedColor}"
+                                Style="{StaticResource text-sm}"
+                                Text="Only visible on collapsed header" />
                         </StackPanel>
                     </Border>
                 </TabItem>
@@ -66,8 +74,9 @@
                                     TextChanged="EnglishDateTxtBox_TextChanged" />
                                 <TextBox
                                     Background="{DynamicResource BorderColor}"
+                                    IsReadOnly="True"
                                     Style="{StaticResource text-box}"
-                                    Text="{Binding DateConverterViewModel.ConvertedNepaliDate}"
+                                    Text="{Binding DateConverterViewModel.ConvertedNepaliDate, Mode=OneWay}"
                                     TextAlignment="Center" />
                             </StackPanel>
                             <!--  nep to eng  -->
@@ -87,8 +96,9 @@
                                     TextChanged="NepaliDateTxtBox_TextChanged" />
                                 <TextBox
                                     Background="{DynamicResource BorderColor}"
+                                    IsReadOnly="True"
                                     Style="{StaticResource text-box}"
-                                    Text="{Binding DateConverterViewModel.ConvertedEnglishDate}"
+                                    Text="{Binding DateConverterViewModel.ConvertedEnglishDate, Mode=OneWay}"
                                     TextAlignment="Center" />
                             </StackPanel>
                         </StackPanel>

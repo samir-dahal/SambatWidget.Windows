@@ -12,6 +12,7 @@ namespace SambatWidget.Core
         string GetConsecutiveEnglishMonthsPair();
         string GetWeekDayName();
         string GetShortWeekDayName();
+        string GetMonthName();
         int? GetRemainingDays();
         string GetFormattedEnglishDate();
         string GetFormattedNepaliDate();

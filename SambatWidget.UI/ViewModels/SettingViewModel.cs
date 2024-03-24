@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SambatWidget.Core;
-using SambatWidget.Core.Models;
 using SambatWidget.UI.Helpers;
 
 namespace SambatWidget.UI.ViewModels
@@ -19,6 +18,9 @@ namespace SambatWidget.UI.ViewModels
 
         [ObservableProperty]
         string selectedTimeZone = App.Setting.TimeZone;
+
+        [ObservableProperty]
+        bool showTimeZoneOffset = App.Setting.ShowTimeZoneOffset;
         public SettingViewModel()
         {
             TimeZones = new WpfObservableRangeCollection<string>();
@@ -44,6 +46,7 @@ namespace SambatWidget.UI.ViewModels
         private void SaveTimeZoneChanges()
         {
             App.Setting.TimeZone = SelectedTimeZone;
+            App.Setting.ShowTimeZoneOffset = ShowTimeZoneOffset;
         }
         private async Task GetTimeZonesAsync()
         {

@@ -29,7 +29,7 @@
                 <Setter Property="BorderThickness" Value="0.5" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsToday}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource SuccessColor}" />
+                        <Setter Property="Background" Value="{DynamicResource SuccessColor}" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -44,8 +44,8 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Fonts/Fonts.xaml" />
-                <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
                 <ResourceDictionary Source="/Resources/WidgetContextMenus.xaml" />
+                <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />
                 <ResourceDictionary x:Name="ThemeResource">
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="/Resources/Themes/LightTheme.xaml" />

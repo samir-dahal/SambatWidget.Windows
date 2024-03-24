@@ -34,7 +34,7 @@ namespace SambatWidget.Core
                 TimeSpan timeDifference = targetOffset - localOffset;
 
                 string timeDifferenceString = (timeDifference < TimeSpan.Zero ? "-" : "+") + timeDifference.ToString(@"hh\:mm");
-                string city = targetTimeZone.Substring(targetTimeZone.IndexOf('/') + 1);
+                string city = SanitizeTimeZoneCity(targetTimeZone);
                 return new TimeZoneModel
                 {
                     City = city,
@@ -46,6 +46,16 @@ namespace SambatWidget.Core
             {
                 return null;
             }
+        }
+        private static string SanitizeTimeZoneCity(string input)
+        {
+            int lastSlashIndex = input.LastIndexOf('/');
+            if (lastSlashIndex == -1)
+            {
+                return input;
+            }
+            string sanitizedValue = input.Substring(lastSlashIndex + 1);
+            return sanitizedValue;
         }
     }
 }

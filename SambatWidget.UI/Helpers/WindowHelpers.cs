@@ -119,7 +119,7 @@ namespace SambatWidget.UI.Helpers
 
             double top = App.Setting.AllowGlobalPosition ? SystemParameters.VirtualScreenHeight : desktopWorkingArea.Bottom;
             double left = App.Setting.AllowGlobalPosition ? SystemParameters.VirtualScreenWidth : desktopWorkingArea.Right;
-            
+
             window.Top = Math.Max(0, Math.Min(top - window.ActualHeight, window.Top));
             window.Left = Math.Max(0, Math.Min(left - window.ActualWidth, window.Left));
         }
@@ -147,6 +147,36 @@ namespace SambatWidget.UI.Helpers
                 }
             }
             return runningFullScreen;
+        }
+        private static List<Window> _openWindows = new List<Window>();
+        private static bool IsWindowOpen(Window window)
+        {
+            var openedWindow = _openWindows.FirstOrDefault(w => w.GetType() == window.GetType());
+            if (openedWindow != null)
+            {
+                openedWindow.Activate();
+                return true;
+            }
+            return false;
+        }
+        public static List<Window> GetOpenWindows()
+        {
+            return _openWindows;
+        }
+        public static void OpenWindow(this Window window, bool dialog = false)
+        {
+            if (IsWindowOpen(window)) return;
+            window.Closed += (s, e) => _openWindows.Remove(window);
+            _openWindows.Add(window);
+            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            if (!dialog)
+            {
+                window.Show();
+            }
+            else
+            {
+                window.ShowDialog();
+            }
         }
     }
 }

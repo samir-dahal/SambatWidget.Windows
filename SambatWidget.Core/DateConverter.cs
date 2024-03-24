@@ -15,7 +15,7 @@ namespace SambatWidget.Core
             try
             {
                 var ci = new CultureInfo("en-US");
-                var formats = new[] { "yyyy/MM/dd", "yyyy/dd/MM", "yyyy-M-d", "yyyy-d-M", "yyyy-dd-MM", "yyyy-MM-dd" }
+                var formats = new[] { "yyyy/MM/dd", "yyyy/dd/MM", "yyyy/M/d", "yyyy/d/M", "yyyy-M-d", "yyyy-d-M", "yyyy-dd-MM", "yyyy-MM-dd" }
                         .Union(ci.DateTimeFormat.GetAllDateTimePatterns()).ToArray();
                 var result = DateTime.ParseExact(engDate, formats, ci, DateTimeStyles.AssumeLocal).ToNepaliDate().ToLongDateString(displayDayName: true);
                 return new DateConvertResult(true, result);
