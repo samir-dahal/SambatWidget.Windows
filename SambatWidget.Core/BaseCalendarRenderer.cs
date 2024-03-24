@@ -67,8 +67,22 @@ namespace SambatWidget.Core
                 return remainingDays;
             }
         }
-        public string GetWeekDayName() => _carouselNepDate.EnglishDate.DayOfWeek.ToString();
-        public string GetShortWeekDayName() => _carouselNepDate.EnglishDate.ToString("ddd");
+        public string GetWeekDayName()
+        {
+            if (!IsToday())
+            {
+                return GetThisMonthNepaliStartDate().DayOfWeek.ToString();
+            }
+            return DateTime.Now.DayOfWeek.ToString();
+        }
+        public string GetShortWeekDayName()
+        {
+            if (!IsToday())
+            {
+                return GetThisMonthNepaliStartDate().EnglishDate.ToString("ddd");
+            }
+            return DateTime.Now.ToString("ddd");
+        }
         public bool IsToday() => NepaliDate.Now == _carouselNepDate;
         public string GetFormattedEnglishDate() => _carouselNepDate.EnglishDate.ToString("dd MMM, yyyy");
         public string GetFormattedNepaliDate()
@@ -97,15 +111,15 @@ namespace SambatWidget.Core
         {
             return PrepareCalendarDataGrid(Populate());
         }
-        private int GetThisMonthStartDateIndex()
+        private NepaliDate GetThisMonthNepaliStartDate()
         {
-            return (int)new NepaliDate(_carouselNepDate.Year, _carouselNepDate.Month, 1).DayOfWeek;
+            return new NepaliDate(_carouselNepDate.Year, _carouselNepDate.Month, 1);
         }
         private IEnumerable<WidgetCalendarCellModel> PrepareCalendarDataGrid(List<WidgetCalendarCellModel> cells)
         {
             int currRow = 0;
             int currCol = 0;
-            int monthStartDateIndex = GetThisMonthStartDateIndex();
+            int monthStartDateIndex = (int)GetThisMonthNepaliStartDate().DayOfWeek;
             for (int i = 0; i < cells.Count(); i++)
             {
                 if (currRow == 4 && currCol == 6)

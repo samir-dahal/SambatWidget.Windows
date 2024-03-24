@@ -53,35 +53,41 @@ namespace SambatWidget.UI
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             if (!_settings.Loaded) return;
-            if (!_settings.DefaultPositionSet)
+            else if (!_settings.DefaultPositionSet)
             {
                 _settings.SetDefaultPosition(InitPosition);
-                CalculateAndSaveWindowMoveOffset();
-                return;
             }
-            base.OnRenderSizeChanged(sizeInfo);
-            try
+            else
             {
-                if (!_vm.IsExpanded)
-                {
-                    this.Top = (App.Setting.Position.Y + _settings.WindowHeight) - this.WidgetHeader.ActualHeight;
-                }
-                else
-                {
-                    this.Top = (App.Setting.Position.Y + this.WidgetHeader.ActualHeight) - this.ActualHeight;
-                }
+                base.OnRenderSizeChanged(sizeInfo);
             }
-            finally
+            if (_settings.IsRenderedAfterMouseAction)
             {
-                CalculateAndSaveWindowMoveOffset();
+                CalculateWidgetPositionState();
+                _settings.SetMouseActionRender(false);
+            }
+            CalculateAndSaveWindowMoveOffset();
+        }
+
+        private void CalculateWidgetPositionState()
+        {
+            if (!_vm.IsExpanded)
+            {
+                this.Top = (App.Setting.Position.Y + _settings.WindowHeight) - this.WidgetHeader.ActualHeight;
+            }
+            else
+            {
+                this.Top = (App.Setting.Position.Y + this.WidgetHeader.ActualHeight) - this.ActualHeight;
             }
         }
+
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonUp(e);
             try
             {
                 IsMouseDown = false;
+                _settings.SetMouseActionRender(true);
                 if (_settings.Position.X == this.Left && _settings.Position.Y == this.Top)
                 {
                     _vm.ToggleExpandCommand.Execute(null);
@@ -112,6 +118,23 @@ namespace SambatWidget.UI
                 case Key.Right:
                     _vm.RenderNextCommand.Execute(null);
                     break;
+            }
+        }
+        protected override void OnDeactivated(EventArgs e)
+        {
+            base.OnDeactivated(e);
+            try
+            {
+                _settings.SetWindowHeight(this.ActualHeight);
+                _settings.SetMouseActionRender(true);
+                if (App.Setting.MinimizeOnLostFocus && !App.IsShuttingDown)
+                {
+                    _vm.MinimizeWidgetCommand.Execute(null);
+                }
+            }
+            finally
+            {
+                CalculateAndSaveWindowMoveOffset();
             }
         }
         private void CalculateAndSaveWindowMoveOffset()

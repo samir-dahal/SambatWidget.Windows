@@ -44,6 +44,11 @@
             IsCheckable="True"
             IsChecked="{Binding ShowTimeZone}" />
         <MenuItem
+            Command="{Binding WidgetContextMenuViewModel.ToggleMinimizeOnLostFocusCommand}"
+            Header="Minimize On Lost Focus"
+            IsCheckable="True"
+            IsChecked="{Binding WidgetContextMenuViewModel.MinimizeOnLostFocus}" />
+        <MenuItem
             Command="{Binding WidgetContextMenuViewModel.ToggleAutoRunAtStartupCommand}"
             Header="Autorun at startup"
             IsCheckable="True"

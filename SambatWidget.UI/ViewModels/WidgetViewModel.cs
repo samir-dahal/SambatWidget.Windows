@@ -50,6 +50,16 @@ namespace SambatWidget.UI.ViewModels
             });
         }
         [RelayCommand]
+        private void MinimizeWidget()
+        {
+            Render(() =>
+            {
+                IsExpanded = false;
+                App.Setting.IsExpanded = false;
+                DecideWhenToTransparent();
+            });
+        }
+        [RelayCommand]
         private void ToggleExpand()
         {
             Render(() =>

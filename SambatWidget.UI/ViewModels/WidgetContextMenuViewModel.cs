@@ -11,6 +11,9 @@ namespace SambatWidget.UI.ViewModels
         bool isLocked = App.Setting.LockPosition;
 
         [ObservableProperty]
+        bool minimizeOnLostFocus = App.Setting.MinimizeOnLostFocus;
+
+        [ObservableProperty]
         bool globalPosition = App.Setting.AllowGlobalPosition;
 
         [ObservableProperty]
@@ -45,6 +48,11 @@ namespace SambatWidget.UI.ViewModels
         private void LockPosition()
         {
             App.Setting.LockPosition = IsLocked;
+        }
+        [RelayCommand]
+        private void ToggleMinimizeOnLostFocus()
+        {
+            App.Setting.MinimizeOnLostFocus = MinimizeOnLostFocus;
         }
         [RelayCommand]
         private void ShowSetting()
