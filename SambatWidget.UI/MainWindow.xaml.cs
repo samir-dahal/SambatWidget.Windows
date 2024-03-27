@@ -107,12 +107,14 @@ namespace SambatWidget.UI
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
             base.OnPreviewMouseWheel(e);
+            _vm.HideEventPopupCommand.Execute(null);
             _widgetObserver.RestartScrollTimer();
             _widgetObserver.SetScrollDelta(e.Delta);
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
+            _vm.HideEventPopupCommand.Execute(null);
             switch (e.Key)
             {
                 case Key.Down:
@@ -132,7 +134,11 @@ namespace SambatWidget.UI
             {
                 _settings.SetWindowHeight(this.ActualHeight);
                 _settings.SetMouseActionRender(true);
-                if (App.Setting.MinimizeOnLostFocus && !_vm.EventPopupVisible && !App.IsShuttingDown)
+                if (_vm.EventPopupVisible)
+                {
+                    _vm.HideEventPopupCommand.Execute(null);
+                }
+                if (App.Setting.MinimizeOnLostFocus && !App.IsShuttingDown)
                 {
                     _vm.MinimizeWidgetCommand.Execute(null);
                 }
