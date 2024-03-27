@@ -13,6 +13,10 @@
                 TargetType="{x:Type TextBlock}">
                 <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
                 <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasEventHoliday}" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
+                        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding IsSatDay}" Value="True">
                         <Setter Property="Foreground" Value="{DynamicResource DangerColor}" />
                         <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />

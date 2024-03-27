@@ -13,6 +13,7 @@ namespace SambatWidget.Core.Models
         public int Date { get; set; }
         public bool IsToday { get; set; }
         public bool HasEvent { get; set; }
+        public bool HasEventHoliday { get; set; }
         public bool IsSatDay => ColIndex == 6;
     }
 }

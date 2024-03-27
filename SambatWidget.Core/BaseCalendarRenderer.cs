@@ -104,6 +104,7 @@ namespace SambatWidget.Core
                     Date = i,
                     IsToday = i == NepaliDate.Now.Day && isTodayYearMonth,
                     HasEvent = EventParser.HasEvent(GetYearMonthKey(i)),
+                    HasEventHoliday = EventParser.HasEventHoliday(GetYearMonthKey(i)),
                 });
             }
             return _calendarData;

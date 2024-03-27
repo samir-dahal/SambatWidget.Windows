@@ -52,5 +52,9 @@ namespace SambatWidget.Core
             }
             return false;
         }
+        public static bool HasEventHoliday(string date)
+        {
+            return GetEventByDate(date)?.IsHoliday ?? false;
+        }
     }
 }
