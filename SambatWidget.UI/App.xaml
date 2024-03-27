@@ -28,6 +28,9 @@
                 TargetType="{x:Type Button}">
                 <Setter Property="BorderThickness" Value="0.5" />
                 <Style.Triggers>
+                    <DataTrigger Binding="{Binding HasEvent}" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource BorderColor}" />
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding IsToday}" Value="True">
                         <Setter Property="Background" Value="{DynamicResource SuccessColor}" />
                     </DataTrigger>

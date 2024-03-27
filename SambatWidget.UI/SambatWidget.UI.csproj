@@ -44,4 +44,10 @@
 	  <Folder Include="Converters\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Resources\events_minified.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

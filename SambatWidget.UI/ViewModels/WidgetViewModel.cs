@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SambatWidget.Core;
+using SambatWidget.Core.Models;
 
 namespace SambatWidget.UI.ViewModels
 {
@@ -29,6 +30,12 @@ namespace SambatWidget.UI.ViewModels
 
         [ObservableProperty]
         bool isTransparent = App.Setting.AllowTransparency && !App.Setting.IsExpanded;
+
+        [ObservableProperty]
+        bool eventPopupVisible;
+
+        [ObservableProperty]
+        EventDataModel eventInfo;
 
         [RelayCommand]
         private void RenderNext()
@@ -83,6 +90,21 @@ namespace SambatWidget.UI.ViewModels
             IsTransparent = AllowTransparency;
             App.Setting.AllowTransparency = AllowTransparency;
             DecideWhenToTransparent();
+        }
+        [RelayCommand]
+        private void HandleCellClick(int date)
+        {
+            EventPopupVisible = false;
+            EventInfo = EventParser.GetEventByDate(_calendarRenderer.GetYearMonthKey(date));
+            EventPopupVisible = EventInfo != null;
+        }
+        [RelayCommand]
+        private void HideEventPopup()
+        {
+            if (EventPopupVisible)
+            {
+                EventPopupVisible = false;
+            }
         }
         private void DecideWhenToTransparent()
         {

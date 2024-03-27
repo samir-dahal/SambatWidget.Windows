@@ -88,6 +88,11 @@ namespace SambatWidget.UI
             {
                 IsMouseDown = false;
                 _settings.SetMouseActionRender(true);
+                if (_vm.EventPopupVisible)
+                {
+                    _vm.HideEventPopupCommand.Execute(null);
+                    return;
+                }
                 if (_settings.Position.X == this.Left && _settings.Position.Y == this.Top)
                 {
                     _vm.ToggleExpandCommand.Execute(null);
@@ -127,7 +132,7 @@ namespace SambatWidget.UI
             {
                 _settings.SetWindowHeight(this.ActualHeight);
                 _settings.SetMouseActionRender(true);
-                if (App.Setting.MinimizeOnLostFocus && !App.IsShuttingDown)
+                if (App.Setting.MinimizeOnLostFocus && !_vm.EventPopupVisible && !App.IsShuttingDown)
                 {
                     _vm.MinimizeWidgetCommand.Execute(null);
                 }
