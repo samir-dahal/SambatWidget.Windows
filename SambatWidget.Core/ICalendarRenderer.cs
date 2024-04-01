@@ -17,5 +17,6 @@ namespace SambatWidget.Core
         string GetFormattedEnglishDate();
         string GetFormattedNepaliDate();
         bool IsToday();
+        string GetYearMonthKey(int date);
     }
 }

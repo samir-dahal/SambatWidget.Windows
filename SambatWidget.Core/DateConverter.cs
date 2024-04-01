@@ -9,7 +9,7 @@ namespace SambatWidget.Core
 {
     public static class DateConverter
     {
-        public static string GetCurrentNepaliDate() => NepaliDate.Now.ToString(separator: NepDate.Core.Enums.Separators.ForwardSlash);
+        public static string GetCurrentNepaliDate() => NepaliDate.Now.ToString(DateFormats.YearMonthDay, Separators.ForwardSlash);
         public static DateConvertResult ConvertToNepaliDate(this string engDate)
         {
             try

@@ -84,7 +84,7 @@ namespace SambatWidget.UI.Helpers
             RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_PATH, true);
             if (enable)
             {
-                string startPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), APP_NAME, $"{APP_NAME}.appref-ms");
+                string startPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 key.SetValue(APP_NAME, startPath);
             }
             else

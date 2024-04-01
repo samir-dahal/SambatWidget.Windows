@@ -26,6 +26,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <controls:WidgetCalendarEventPopup Grid.Row="1" />
             <controls:WidgetHeaderControl
                 x:Name="WidgetHeader"
                 Padding="5"

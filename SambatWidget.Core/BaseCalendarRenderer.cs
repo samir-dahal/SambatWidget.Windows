@@ -103,6 +103,8 @@ namespace SambatWidget.Core
                 {
                     Date = i,
                     IsToday = i == NepaliDate.Now.Day && isTodayYearMonth,
+                    HasEvent = EventParser.HasEvent(GetYearMonthKey(i)),
+                    HasEventHoliday = EventParser.HasEventHoliday(GetYearMonthKey(i)),
                 });
             }
             return _calendarData;
@@ -138,6 +140,11 @@ namespace SambatWidget.Core
         public string GetMonthName()
         {
             return _carouselNepDate.MonthName.ToString();
+        }
+
+        public string GetYearMonthKey(int date)
+        {
+            return $"{_carouselNepDate.Year}-{_carouselNepDate.Month}-{date}";
         }
     }
 }

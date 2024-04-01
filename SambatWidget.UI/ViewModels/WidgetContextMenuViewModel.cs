@@ -89,7 +89,7 @@ namespace SambatWidget.UI.ViewModels
             LongDateFormat = NepaliDate.Now.ToLongDateString();
             UnicodeFormat = NepaliDate.Now.ToUnicodeString();
             LongUnicodeFormat = NepaliDate.Now.ToLongDateUnicodeString();
-            DashedFormat = NepaliDate.Now.ToString(separator: NepDate.Core.Enums.Separators.Dash);
+            DashedFormat = NepaliDate.Now.ToString(DateFormats.YearMonthDay, Separators.Dash);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace SambatWidget.UI
             _timer.Interval = TimeSpan.FromSeconds(1);
 
             _scrollTimer = new DispatcherTimer();
-            _scrollTimer.Interval = TimeSpan.FromMilliseconds(200);
+            _scrollTimer.Interval = TimeSpan.FromMilliseconds(100);
 
             _relocationTimer = new DispatcherTimer { IsEnabled = App.Setting.AllowGlobalPosition, };
             _relocationTimer.Interval = TimeSpan.FromSeconds(1);
