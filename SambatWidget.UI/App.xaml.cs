@@ -16,7 +16,6 @@ namespace SambatWidget.UI
         {
             Setting = AppHelpers.LoadAppSettings();
             ThemeManager.ApplyDefaultTheme();
-            EventParser.ParseEventsJson("./Resources/events_minified.json");
             base.OnStartup(e);
         }
         protected override void OnExit(ExitEventArgs e)

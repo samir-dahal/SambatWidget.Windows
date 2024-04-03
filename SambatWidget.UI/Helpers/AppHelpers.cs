@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System.Windows;
 using SambatWidget.UI.Models;
 using System.Text.Json;
+using SambatWidget.Core;
 
 namespace SambatWidget.UI.Helpers
 {
@@ -11,6 +12,16 @@ namespace SambatWidget.UI.Helpers
         private const string REGISTRY_PATH = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
         private const string APP_NAME = "SambatWidget";
         private const string SETTING_FILE = "sambatwidget.json";
+        private const string DEFAULT_EVENT_FILE_PATH = "./Resources/events_minified.json";
+        private const string EVENT_FILE = "events_minified.json";
+        private static string GetAppDirectoryFilePath(string fileName)
+        {
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APP_NAME, fileName);
+            }
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APP_NAME);
+        }
         public static void DisableAutoStartAtStartup()
         {
             try
@@ -56,13 +67,30 @@ namespace SambatWidget.UI.Helpers
         }
         public static SettingModel LoadAppSettings()
         {
-            if (!File.Exists(SETTING_FILE))
-            {
-                File.WriteAllText(SETTING_FILE, JsonSerializer.Serialize(new SettingModel()));
-            }
             try
             {
-                string json = File.ReadAllText(SETTING_FILE);
+                string settingFilePath = GetAppDirectoryFilePath(SETTING_FILE);
+                string eventFilePath = GetAppDirectoryFilePath(EVENT_FILE);
+                string appDir = GetAppDirectoryFilePath(null);
+                if (!Directory.Exists(appDir))
+                {
+                    Directory.CreateDirectory(appDir);
+                }
+                if (!File.Exists(settingFilePath))
+                {
+                    File.WriteAllText(settingFilePath, JsonSerializer.Serialize(new SettingModel()));
+                }
+                bool hasEvent = File.Exists(eventFilePath);
+                if (!hasEvent && File.Exists(DEFAULT_EVENT_FILE_PATH))
+                {
+                    File.Copy(DEFAULT_EVENT_FILE_PATH, GetAppDirectoryFilePath(EVENT_FILE), true);
+                    hasEvent = true;
+                }
+                if (hasEvent)
+                {
+                    EventParser.ParseEventsJson(GetAppDirectoryFilePath(EVENT_FILE));
+                }
+                string json = File.ReadAllText(settingFilePath);
                 return JsonSerializer.Deserialize<SettingModel>(json);
             }
             catch
@@ -74,7 +102,7 @@ namespace SambatWidget.UI.Helpers
         {
             try
             {
-                File.WriteAllText(SETTING_FILE, JsonSerializer.Serialize(settings));
+                File.WriteAllText(GetAppDirectoryFilePath(SETTING_FILE), JsonSerializer.Serialize(settings));
             }
             catch { }
             return settings;
@@ -84,7 +112,8 @@ namespace SambatWidget.UI.Helpers
             RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_PATH, true);
             if (enable)
             {
-                string startPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string dirPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string startPath = Path.Combine(dirPath, $"{APP_NAME}.exe");
                 key.SetValue(APP_NAME, startPath);
             }
             else
