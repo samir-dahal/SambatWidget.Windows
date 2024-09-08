@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SambatWidget.UI", "SambatWidget.UI\SambatWidget.UI.csproj", "{E6887161-BB58-47B8-80D5-BADD4225CE4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SambatWidget.UI", "SambatWidget.UI\SambatWidget.UI.csproj", "{E6887161-BB58-47B8-80D5-BADD4225CE4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SambatWidget.Core", "SambatWidget.Core\SambatWidget.Core.csproj", "{A4D10159-07DF-4D3D-895A-8433762AAABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SambatWidget.Core", "SambatWidget.Core\SambatWidget.Core.csproj", "{A4D10159-07DF-4D3D-895A-8433762AAABD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{A4C9FD05-86CD-41FD-86B0-0E76140D04DC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NepDate", "..\NepDate\src\NepDate\NepDate.csproj", "{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +23,12 @@ Global
 		{A4D10159-07DF-4D3D-895A-8433762AAABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4D10159-07DF-4D3D-895A-8433762AAABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4D10159-07DF-4D3D-895A-8433762AAABD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4D10159-07DF-4D3D-895A-8433762AAABD} = {A4C9FD05-86CD-41FD-86B0-0E76140D04DC}
-		{C17AD17A-993B-4E04-BFFE-DC8EBCAC33C9} = {A4C9FD05-86CD-41FD-86B0-0E76140D04DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF4A1D10-C8D3-48E2-A0ED-12CEA8A4A573}
