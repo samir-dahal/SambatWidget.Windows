@@ -24,8 +24,8 @@ https://github.com/samir-dahal/SambatWidget.Windows/assets/39849021/e48be9be-4c8
 ## Installation
 Before downloading make sure you have .NET 6 Desktop Runtime installed on your PC.
 
-- Download the .NET 6 Desktop Runtime
-- Download the zip file from the latest release section: https://github.com/samir-dahal/SambatWidget.Windows/releases/tag/v1.1.0
+- Download the [.NET 6 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.28-windows-x64-installer?cid=getdotnetcore).
+- Download the zip file from the latest [release section](https://github.com/samir-dahal/SambatWidget.Windows/releases/tag/v1.1.0):
 - Extract the files to the desired directory and run the executable! **(You should see the widget on top left corner of the screen on the first run)**
 
 <img src="https://github.com/samir-dahal/SambatWidget.Windows/assets/39849021/2dc82f00-b5f4-4242-89c8-8ca316202e2d" width="50%" height="auto"/>
