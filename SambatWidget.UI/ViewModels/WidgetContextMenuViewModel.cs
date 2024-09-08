@@ -47,12 +47,12 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void LockPosition()
         {
-            App.Setting.LockPosition = IsLocked;
+            App.Setting.Save(x => x.LockPosition = IsLocked);
         }
         [RelayCommand]
         private void ToggleMinimizeOnLostFocus()
         {
-            App.Setting.MinimizeOnLostFocus = MinimizeOnLostFocus;
+            App.Setting.Save(x => x.MinimizeOnLostFocus = MinimizeOnLostFocus);
         }
         [RelayCommand]
         private void ShowSetting()
@@ -68,8 +68,9 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void ToggleGlobalPosition()
         {
-            App.Setting.AllowGlobalPosition = GlobalPosition;
+            App.Setting.Save(x => x.AllowGlobalPosition = GlobalPosition);
         }
+
         [RelayCommand]
         private void ToggleAutoRunAtStartup()
         {
@@ -81,7 +82,7 @@ namespace SambatWidget.UI.ViewModels
             {
                 AppHelpers.DisableAutoStartAtStartup();
             }
-            App.Setting.AutoRunAtStartup = AutoRunAtStartup;
+            App.Setting.Save(x => x.AutoRunAtStartup = AutoRunAtStartup);
         }
         public void InitCopyTodayContextMenu()
         {

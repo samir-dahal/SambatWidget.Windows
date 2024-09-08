@@ -62,7 +62,7 @@ namespace SambatWidget.UI.ViewModels
             Render(() =>
             {
                 IsExpanded = false;
-                App.Setting.IsExpanded = false;
+                App.Setting.Save(x => x.IsExpanded = false);
                 DecideWhenToTransparent();
             });
         }
@@ -72,7 +72,7 @@ namespace SambatWidget.UI.ViewModels
             Render(() =>
             {
                 IsExpanded = !IsExpanded;
-                App.Setting.IsExpanded = IsExpanded;
+                App.Setting.Save(x => x.IsExpanded = IsExpanded);
                 DecideWhenToTransparent();
             });
         }
@@ -81,14 +81,14 @@ namespace SambatWidget.UI.ViewModels
         {
             Render(() =>
             {
-                App.Setting.ShowTimeZone = ShowTimeZone;
+                App.Setting.Save(x => x.ShowTimeZone = ShowTimeZone);
             });
         }
         [RelayCommand]
         private void ToggleTransparency()
         {
             IsTransparent = AllowTransparency;
-            App.Setting.AllowTransparency = AllowTransparency;
+            App.Setting.Save(x => x.AllowTransparency = AllowTransparency);
             DecideWhenToTransparent();
         }
         [RelayCommand]

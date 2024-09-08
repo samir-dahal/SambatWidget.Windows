@@ -2,8 +2,8 @@
 using Microsoft.Win32;
 using System.Windows;
 using SambatWidget.UI.Models;
-using System.Text.Json;
 using SambatWidget.Core;
+using Newtonsoft.Json;
 
 namespace SambatWidget.UI.Helpers
 {
@@ -78,7 +78,7 @@ namespace SambatWidget.UI.Helpers
                 }
                 if (!File.Exists(settingFilePath))
                 {
-                    File.WriteAllText(settingFilePath, JsonSerializer.Serialize(new SettingModel()));
+                    File.WriteAllText(settingFilePath, JsonConvert.SerializeObject(new SettingModel()));
                 }
                 bool hasEvent = File.Exists(eventFilePath);
                 if (!hasEvent && File.Exists(DEFAULT_EVENT_FILE_PATH))
@@ -91,7 +91,7 @@ namespace SambatWidget.UI.Helpers
                     EventParser.ParseEventsJson(GetAppDirectoryFilePath(EVENT_FILE));
                 }
                 string json = File.ReadAllText(settingFilePath);
-                return JsonSerializer.Deserialize<SettingModel>(json);
+                return JsonConvert.DeserializeObject<SettingModel>(json);
             }
             catch
             {
@@ -102,7 +102,7 @@ namespace SambatWidget.UI.Helpers
         {
             try
             {
-                File.WriteAllText(GetAppDirectoryFilePath(SETTING_FILE), JsonSerializer.Serialize(settings));
+                File.WriteAllText(GetAppDirectoryFilePath(SETTING_FILE), JsonConvert.SerializeObject(settings));
             }
             catch { }
             return settings;

@@ -16,8 +16,9 @@ namespace SambatWidget.UI.Models
         public bool AllowGlobalPosition { get; set; } = true;
         public string Theme { get; set; } = "LightTheme";
         public Point Position { get; set; }
-        public virtual SettingModel Save()
+        public virtual SettingModel Save(Action<SettingModel> action = null)
         {
+            action?.Invoke(this);
             return AppHelpers.SaveAppSettings(this);
         }
     }
