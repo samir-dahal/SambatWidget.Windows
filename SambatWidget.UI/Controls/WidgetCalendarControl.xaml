@@ -11,6 +11,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
+        <Grid.Background>
+            <ImageBrush
+                ImageSource="https://png.pngtree.com/png-clipart/20220716/ourmid/pngtree-nepal-flag-waving-border-png-image_5981367.png"
+                Opacity="0.2"
+                Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -76,7 +82,7 @@
                 <DataTemplate>
                     <Button
                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.HandleCellClickCommand}"
-                        CommandParameter="{Binding Date}"
+                        CommandParameter="{Binding .}"
                         Style="{StaticResource CalendarCellStyle}">
                         <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Date}" />
                     </Button>

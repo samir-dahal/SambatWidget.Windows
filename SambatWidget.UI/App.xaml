@@ -24,6 +24,9 @@
                     <DataTrigger Binding="{Binding IsToday}" Value="True">
                         <Setter Property="Foreground" Value="White" />
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding IsNotPartOfCurrentPage}" Value="True">
+                        <Setter Property="Opacity" Value="0.3" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
             <Style

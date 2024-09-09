@@ -92,10 +92,11 @@ namespace SambatWidget.UI.ViewModels
             DecideWhenToTransparent();
         }
         [RelayCommand]
-        private void HandleCellClick(int date)
+        private void HandleCellClick(WidgetCalendarCellModel cell)
         {
+            if (cell.IsNotPartOfCurrentPage) return;
             EventPopupVisible = false;
-            EventInfo = EventParser.GetEventByDate(_calendarRenderer.GetYearMonthKey(date));
+            EventInfo = EventParser.GetEventByDate(_calendarRenderer.GetYearMonthKey(cell.Date));
             EventPopupVisible = EventInfo != null;
         }
         [RelayCommand]

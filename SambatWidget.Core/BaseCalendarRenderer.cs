@@ -107,6 +107,15 @@ namespace SambatWidget.Core
                     HasEventHoliday = EventParser.HasEventHoliday(GetYearMonthKey(i)),
                 });
             }
+            int cellLeft = 35 - _calendarData.Count;
+            for (int c = 1; c <= cellLeft; c++)
+            {
+                _calendarData.Add(new WidgetCalendarCellModel
+                {
+                    Date = c,
+                    IsNotPartOfCurrentPage = true,
+                });
+            }
             return _calendarData;
         }
         private IEnumerable<WidgetCalendarCellModel> Render()
@@ -122,7 +131,7 @@ namespace SambatWidget.Core
             int currRow = 0;
             int currCol = 0;
             int monthStartDateIndex = (int)GetThisMonthNepaliStartDate().DayOfWeek;
-            for (int i = 0; i < cells.Count(); i++)
+            for (int i = 0; i < cells.Count; i++)
             {
                 if (currRow == 4 && currCol == 6)
                 {

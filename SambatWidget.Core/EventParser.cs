@@ -1,8 +1,8 @@
 ﻿using NepDate;
+using Newtonsoft.Json;
 using SambatWidget.Core.Models;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace SambatWidget.Core
 {
@@ -16,10 +16,7 @@ namespace SambatWidget.Core
             {
                 if (_cachedEvents.Count <= 0)
                 {
-                    _cachedEvents = JsonSerializer.Deserialize<Dictionary<string, string[]>>(File.ReadAllText(path), new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
+                    _cachedEvents = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(File.ReadAllText(path));
                     foreach (KeyValuePair<string, string[]> kvp in _cachedEvents)
                     {
                         int day = NepaliDate.Parse(kvp.Key).Day;

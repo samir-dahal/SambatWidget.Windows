@@ -1,8 +1,8 @@
-﻿using SambatWidget.Core.Models;
+﻿using Newtonsoft.Json;
+using SambatWidget.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using TimeZoneConverter;
 
@@ -18,7 +18,7 @@ namespace SambatWidget.Core
                 client.BaseAddress = new Uri(_apiUrl);
                 var res = await client.GetAsync("/api/timezones");
                 var timezones = await res.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<string>>(timezones);
+                return JsonConvert.DeserializeObject<IEnumerable<string>>(timezones);
             }
         }
         public static TimeZoneModel GetTimeZoneData(string targetTimeZone)

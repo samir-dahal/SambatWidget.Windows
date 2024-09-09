@@ -8,6 +8,7 @@ namespace SambatWidget.Core.Models
 {
     public class WidgetCalendarCellModel
     {
+        public bool IsNotPartOfCurrentPage { get; set; }
         public int RowIndex { get; set; }
         public int ColIndex { get; set; }
         public int Date { get; set; }
