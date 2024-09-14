@@ -28,7 +28,7 @@
                 <TextBlock
                     FontFamily="{StaticResource FontBold}"
                     FontSize="15"
-                    Text="{Binding EventInfo.Date}" />
+                    Text="{Binding EventInfo.Date, Converter={StaticResource EnglishToNepaliNumberConverter}}" />
                 <TextBlock
                     Margin="0,8"
                     FontFamily="{StaticResource FontSemiBold}"

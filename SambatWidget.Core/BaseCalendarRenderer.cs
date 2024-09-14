@@ -2,7 +2,7 @@
 using SambatWidget.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
 
 namespace SambatWidget.Core
 {
@@ -75,6 +75,14 @@ namespace SambatWidget.Core
             }
             return DateTime.Now.DayOfWeek.ToString();
         }
+        public string GetWeekDayNameNP()
+        {
+            if (!IsToday())
+            {
+                return GetNepaliWeekDayName(GetThisMonthNepaliStartDate().DayOfWeek);
+            }
+            return GetNepaliWeekDayName(_carouselNepDate.DayOfWeek);
+        }
         public string GetShortWeekDayName()
         {
             if (!IsToday())
@@ -91,7 +99,15 @@ namespace SambatWidget.Core
             {
                 return $"{_carouselNepDate.MonthName} 1, {_carouselNepDate.Year}";
             }
-            return $"{_carouselNepDate.MonthName} {_carouselNepDate.Day}, {_carouselNepDate.Year}";
+            return _carouselNepDate.ToLongDateString();
+        }
+        public string GetFormattedNepaliDateNP()
+        {
+            if (!IsToday())
+            {
+                return new NepaliDate(_carouselNepDate.Year, _carouselNepDate.Month, 1).ToLongDateUnicodeString();
+            }
+            return _carouselNepDate.ToLongDateUnicodeString();
         }
         private List<WidgetCalendarCellModel> Populate()
         {
@@ -155,5 +171,17 @@ namespace SambatWidget.Core
         {
             return $"{_carouselNepDate.Year}-{_carouselNepDate.Month}-{date}";
         }
+        private string GetNepaliWeekDayName(DayOfWeek dayOfWeek) =>
+           dayOfWeek switch
+           {
+               DayOfWeek.Sunday => "आइतबार",
+               DayOfWeek.Monday => "सोमबार",
+               DayOfWeek.Tuesday => "मंगलबार",
+               DayOfWeek.Wednesday => "बुधबार",
+               DayOfWeek.Thursday => "बिहिबार",
+               DayOfWeek.Friday => "शुक्रबार",
+               DayOfWeek.Saturday => "शनिबार",
+               _ => string.Empty,
+           };
     }
 }

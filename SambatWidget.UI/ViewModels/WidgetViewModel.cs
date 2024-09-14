@@ -18,6 +18,8 @@ namespace SambatWidget.UI.ViewModels
             WidgetCalendarViewModel = new WidgetCalendarViewModel(_calendarRenderer);
             WidgetContextMenuViewModel = new WidgetContextMenuViewModel();
         }
+        [ObservableProperty]
+        bool isNepali = App.Setting.IsNepali;
 
         [ObservableProperty]
         bool isExpanded = App.Setting.IsExpanded;
@@ -106,6 +108,13 @@ namespace SambatWidget.UI.ViewModels
             {
                 EventPopupVisible = false;
             }
+        }
+        [RelayCommand]
+        private void ToggleNepaliLang()
+        {
+            App.Setting.Save(x => x.IsNepali = IsNepali);
+            WidgetCalendarViewModel.ReRender();
+            WidgetHeaderViewModel.InitHeader();
         }
         private void DecideWhenToTransparent()
         {

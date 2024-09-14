@@ -21,9 +21,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Costura.Fody" Version="5.7.0">
-		  <PrivateAssets>all</PrivateAssets>
-		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
@@ -39,10 +36,6 @@
 		<Resource Include="Resources\Fonts\Montserrat_SemiBold_Font.ttf" />
 		<Resource Include="Resources\Images\nepal.png" />
 		<Resource Include="Resources\Images\usa.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 	<ItemGroup>

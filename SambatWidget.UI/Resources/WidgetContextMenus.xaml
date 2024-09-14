@@ -24,6 +24,11 @@
                 Header="{Binding WidgetContextMenuViewModel.LongUnicodeFormat}" />
         </MenuItem>
         <MenuItem
+            Command="{Binding ToggleNepaliLangCommand}"
+            Header="Nepali Lang"
+            IsCheckable="True"
+            IsChecked="{Binding IsNepali}" />
+        <MenuItem
             Command="{Binding WidgetContextMenuViewModel.LockPositionCommand}"
             Header="Lock Position"
             IsCheckable="True"

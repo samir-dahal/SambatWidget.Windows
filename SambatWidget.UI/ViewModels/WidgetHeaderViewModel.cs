@@ -21,18 +21,35 @@ namespace SambatWidget.UI.ViewModels
         string timeZone;
         public void InitHeader()
         {
-            //use the abbreviated day of week name to reduce the space when timezone is enabled
-            Header = App.Setting.ShowTimeZone
-                ? _calendarRenderer.GetShortWeekDayName() 
-                : _calendarRenderer.GetWeekDayName();
-            
-            string engHeader = _calendarRenderer.GetConsecutiveEnglishMonthsPair();
-            if (!App.Setting.IsExpanded)
-            {
-                engHeader = _calendarRenderer.GetFormattedEnglishDate();
-            }
-            SubHeader = $"{_calendarRenderer.GetFormattedNepaliDate()}  |  {engHeader}";
+            SetHeader();
             InitTimeZone();
+            SetSubHeader();
+        }
+        private void SetHeader()
+        {
+            if (App.Setting.IsNepali)
+            {
+                Header = _calendarRenderer.GetWeekDayNameNP();
+            }
+            else
+            {
+                // Use the abbreviated day of the week name when the timezone is enabled
+                Header = App.Setting.ShowTimeZone
+                            ? _calendarRenderer.GetShortWeekDayName()
+                            : _calendarRenderer.GetWeekDayName();
+            }
+        }
+        private void SetSubHeader()
+        {
+            // Get the English header, conditionally formatting based on expanded setting
+            string engHeader = App.Setting.IsExpanded
+                                ? _calendarRenderer.GetConsecutiveEnglishMonthsPair()
+                                : _calendarRenderer.GetFormattedEnglishDate();
+
+            // Set subheader with Nepali and English dates
+            SubHeader = App.Setting.IsNepali
+                            ? $"{_calendarRenderer.GetFormattedNepaliDateNP()} | {engHeader}"
+                            : $"{_calendarRenderer.GetFormattedNepaliDate()} | {engHeader}";
         }
         public void InitTimeZone()
         {

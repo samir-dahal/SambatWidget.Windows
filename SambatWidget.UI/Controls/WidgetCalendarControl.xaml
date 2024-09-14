@@ -11,12 +11,6 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <Grid.Background>
-            <ImageBrush
-                ImageSource="https://png.pngtree.com/png-clipart/20220716/ourmid/pngtree-nepal-flag-waving-border-png-image_5981367.png"
-                Opacity="0.2"
-                Stretch="UniformToFill" />
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -35,37 +29,37 @@
                 Grid.Column="0"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Sun" />
+                Text="{Binding WidgetCalendarViewModel.Sunday}" />
             <TextBlock
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Mon" />
+                Text="{Binding WidgetCalendarViewModel.Monday}" />
             <TextBlock
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Tue" />
+                Text="{Binding WidgetCalendarViewModel.Tuesday}" />
             <TextBlock
                 Grid.Column="3"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Wed" />
+                Text="{Binding WidgetCalendarViewModel.Wednesday}" />
             <TextBlock
                 Grid.Column="4"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Thu" />
+                Text="{Binding WidgetCalendarViewModel.Thursday}" />
             <TextBlock
                 Grid.Column="5"
                 HorizontalAlignment="Center"
                 Style="{StaticResource text-sm}"
-                Text="Fri" />
+                Text="{Binding WidgetCalendarViewModel.Friday}" />
             <TextBlock
                 Grid.Column="6"
                 HorizontalAlignment="Center"
                 helpers:Css.Class="text-sm text-semibold text-danger"
-                Text="Sat" />
+                Text="{Binding WidgetCalendarViewModel.Saturday}" />
         </Grid>
         <ItemsControl Grid.Row="1" ItemsSource="{Binding WidgetCalendarViewModel.CalendarCells}">
             <ItemsControl.ItemsPanel>
@@ -84,7 +78,7 @@
                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.HandleCellClickCommand}"
                         CommandParameter="{Binding .}"
                         Style="{StaticResource CalendarCellStyle}">
-                        <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Date}" />
+                        <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Date, Converter={StaticResource EnglishToNepaliNumberConverter}}" />
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
