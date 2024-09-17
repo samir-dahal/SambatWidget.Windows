@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SambatWidget.Core;
 using SambatWidget.UI.Helpers;
+using System.Diagnostics;
 
 namespace SambatWidget.UI.ViewModels
 {
@@ -34,6 +35,12 @@ namespace SambatWidget.UI.ViewModels
             SaveUIChanges();
             SaveTimeZoneChanges();
             App.Setting.Save();
+        }
+
+        [RelayCommand]
+        private void OpenSettingsPath()
+        {
+            Process.Start(new ProcessStartInfo(AppHelpers.GetAppDirectoryFilePath(null)) { UseShellExecute = true });
         }
         private void SaveUIChanges()
         {

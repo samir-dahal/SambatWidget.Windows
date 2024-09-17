@@ -14,7 +14,7 @@ namespace SambatWidget.UI.Helpers
         private const string SETTING_FILE = "sambatwidget.json";
         private const string DEFAULT_EVENT_FILE_PATH = "./Resources/events_minified.json";
         private const string EVENT_FILE = "events_minified.json";
-        private static string GetAppDirectoryFilePath(string fileName)
+        public static string GetAppDirectoryFilePath(string fileName)
         {
             if (!string.IsNullOrWhiteSpace(fileName))
             {

@@ -112,6 +112,13 @@
                 Command="{Binding ApplyChangesCommand}"
                 Content="Apply Changes"
                 Style="{StaticResource btn-primary}" />
+            <Button
+                Grid.Row="1"
+                Margin="0,5,0,0"
+                HorizontalAlignment="Left"
+                Command="{Binding OpenSettingsPathCommand}"
+                Content="Open Path"
+                Style="{StaticResource btn-primary}" />
         </Grid>
     </Border>
 </Window>
