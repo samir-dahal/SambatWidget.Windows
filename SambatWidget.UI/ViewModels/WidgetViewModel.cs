@@ -98,7 +98,7 @@ namespace SambatWidget.UI.ViewModels
         {
             if (cell.IsNotPartOfCurrentPage) return;
             EventPopupVisible = false;
-            EventInfo = EventParser.GetEventByDate(_calendarRenderer.GetYearMonthKey(cell.Date));
+            EventInfo = EventParser.GetEventByDate(_calendarRenderer.GetYearMonthKey(cell.Day));
             EventPopupVisible = EventInfo != null;
         }
         [RelayCommand]

@@ -67,9 +67,9 @@
                     <Grid
                         x:Name="CalendarCellGrid"
                         helpers:GridHelpers.ColumnCount="7"
-                        helpers:GridHelpers.RowCount="5"
+                        helpers:GridHelpers.RowCount="6"
                         helpers:GridHelpers.StarColumns="0,1,2,3,4,5,6"
-                        helpers:GridHelpers.StarRows="0,1,2,3,4" />
+                        helpers:GridHelpers.StarRows="0,1,2,3,4,5" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -78,7 +78,7 @@
                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.HandleCellClickCommand}"
                         CommandParameter="{Binding .}"
                         Style="{StaticResource CalendarCellStyle}">
-                        <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Date, Converter={StaticResource EnglishToNepaliNumberConverter}}" />
+                        <TextBlock Style="{StaticResource CalendarCellTextStyle}" Text="{Binding Day, Converter={StaticResource EnglishToNepaliNumberConverter}}" />
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

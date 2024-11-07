@@ -112,28 +112,48 @@ namespace SambatWidget.Core
         private List<WidgetCalendarCellModel> Populate()
         {
             _calendarData.Clear();
-            bool isTodayYearMonth = _carouselNepDate.Month == NepaliDate.Now.Month && _carouselNepDate.Year == NepaliDate.Now.Year;
-            for (int i = 1; i <= _carouselNepDate.MonthEndDay; i++)
+
+            bool isCurrentMonth = _carouselNepDate.Month == NepaliDate.Now.Month && _carouselNepDate.Year == NepaliDate.Now.Year;
+            int monthStartDayIndex = (int)GetThisMonthNepaliStartDate().DayOfWeek;
+            int totalDaysInMonth = _carouselNepDate.MonthEndDay;
+
+            // Total cells (42) minus the current month's days and starting offset gives the remaining cells for the end
+            int trailingDaysCount = 42 - (totalDaysInMonth + monthStartDayIndex);
+
+            // Add trailing days from the previous month
+            for (int i = 0; i < monthStartDayIndex; i++)
             {
+                _calendarData.Add(new WidgetCalendarCellModel()
+                    .FadeOutCurrentDay((totalDaysInMonth - monthStartDayIndex) + i + 1)
+                    );
+            }
+
+            // Add the current month's days
+            for (int day = 1; day <= totalDaysInMonth; day++)
+            {
+                string yearMonthKey = GetYearMonthKey(day);
                 _calendarData.Add(new WidgetCalendarCellModel
                 {
-                    Date = i,
-                    IsToday = i == NepaliDate.Now.Day && isTodayYearMonth,
-                    HasEvent = EventParser.HasEvent(GetYearMonthKey(i)),
-                    HasEventHoliday = EventParser.HasEventHoliday(GetYearMonthKey(i)),
+                    Day = day,
+                    IsToday = day == NepaliDate.Now.Day && isCurrentMonth,
+                    HasEvent = EventParser.HasEvent(yearMonthKey),
+                    HasEventHoliday = EventParser.HasEventHoliday(yearMonthKey)
                 });
             }
-            int cellLeft = 35 - _calendarData.Count;
-            for (int c = 1; c <= cellLeft; c++)
+
+            //rest trailing days count to the remaining cells count, if the calendar data is withing the 5th row
+            if (_calendarData.Count <= 35)
             {
-                _calendarData.Add(new WidgetCalendarCellModel
-                {
-                    Date = c,
-                    IsNotPartOfCurrentPage = true,
-                });
+                trailingDaysCount = 35 - _calendarData.Count;
+            }
+            // Add leading days for the next month
+            for (int i = 1; i <= trailingDaysCount; i++)
+            {
+                _calendarData.Add(new WidgetCalendarCellModel().FadeOutCurrentDay(i));
             }
             return _calendarData;
         }
+
         private IEnumerable<WidgetCalendarCellModel> Render()
         {
             return PrepareCalendarDataGrid(Populate());
@@ -146,13 +166,9 @@ namespace SambatWidget.Core
         {
             int currRow = 0;
             int currCol = 0;
-            int monthStartDateIndex = (int)GetThisMonthNepaliStartDate().DayOfWeek;
+            int monthStartDateIndex = 0;
             for (int i = 0; i < cells.Count; i++)
             {
-                if (currRow == 4 && currCol == 6)
-                {
-                    monthStartDateIndex = 0;
-                }
                 currCol = monthStartDateIndex % 7;
                 currRow = (int)Math.Ceiling((double)(monthStartDateIndex + 1) / 7) - 1;
                 cells[i].ColIndex = currCol;

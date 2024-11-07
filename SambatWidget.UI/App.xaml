@@ -26,7 +26,7 @@
                         <Setter Property="Foreground" Value="White" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsNotPartOfCurrentPage}" Value="True">
-                        <Setter Property="Opacity" Value="0.3" />
+                        <Setter Property="Opacity" Value="0.5" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
