@@ -22,5 +22,11 @@ namespace SambatWidget.Core.Models
             IsNotPartOfCurrentPage = true;
             return this;
         }
+        public WidgetCalendarCellModel SetGridPosition(int cellIndex)
+        {
+            ColIndex = cellIndex % 7;
+            RowIndex = cellIndex / 7;
+            return this;
+        }
     }
 }
