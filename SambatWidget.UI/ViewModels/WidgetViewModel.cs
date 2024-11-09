@@ -66,6 +66,7 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void ShowToday()
         {
+            AnimateOnNext = true;
             Render(() =>
             {
                 WidgetCalendarViewModel.Init();
