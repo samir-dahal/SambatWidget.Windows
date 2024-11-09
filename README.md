@@ -1,5 +1,5 @@
 # Sambat Widget
-
+![sambatwidget](https://github.com/user-attachments/assets/758f4041-b921-45a1-88b4-e71d1c07b6e2)
 ## Demo
 https://github.com/samir-dahal/SambatWidget.Windows/assets/39849021/e48be9be-4c83-4496-ba03-1f5cf865bd10
 
