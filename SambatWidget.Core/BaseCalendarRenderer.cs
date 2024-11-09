@@ -114,10 +114,11 @@ namespace SambatWidget.Core
 
             bool isCurrentMonth = _carouselNepDate.Month == NepaliDate.Now.Month && _carouselNepDate.Year == NepaliDate.Now.Year;
             int monthStartDayIndex = (int)GetThisMonthNepaliStartDate().DayOfWeek;
-            int totalDaysInMonth = _carouselNepDate.MonthEndDay;
+            int totalDaysInPrevMonth = _carouselNepDate.AddMonths(-1).MonthEndDay;
+            int totalDaysInCurrMonth = _carouselNepDate.MonthEndDay;
 
             // Total cells (42) minus the current month's days and starting offset gives the remaining cells for the end
-            int trailingDaysCount = 42 - (totalDaysInMonth + monthStartDayIndex);
+            int trailingDaysCount = 42 - (totalDaysInCurrMonth + monthStartDayIndex);
 
             int currentCellIndex = 0; // To keep track of the current cell position in the calendar grid
 
@@ -125,12 +126,12 @@ namespace SambatWidget.Core
             for (int i = 0; i < monthStartDayIndex; i++, currentCellIndex++)
             {
                 _calendarData.Add(new WidgetCalendarCellModel()
-                    .FadeOutCurrentDay((totalDaysInMonth - monthStartDayIndex) + i + 1)
+                    .FadeOutCurrentDay((totalDaysInPrevMonth - monthStartDayIndex) + i + 1)
                     .SetGridPosition(currentCellIndex));
             }
 
             // Add the current month's days
-            for (int day = 1; day <= totalDaysInMonth; day++, currentCellIndex++)
+            for (int day = 1; day <= totalDaysInCurrMonth; day++, currentCellIndex++)
             {
                 string yearMonthKey = GetYearMonthKey(day);
                 _calendarData.Add(new WidgetCalendarCellModel
