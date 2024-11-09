@@ -39,15 +39,29 @@ namespace SambatWidget.UI.ViewModels
         [ObservableProperty]
         EventDataModel eventInfo;
 
+        [ObservableProperty]
+        bool animateOnNext;
+
+        [ObservableProperty]
+        bool animateOnPrev;
+
         [RelayCommand]
         private void RenderNext()
         {
-            Render(WidgetCalendarViewModel.RenderNext);
+            if (!AnimateOnNext)
+            {
+                AnimateOnNext = true;
+                Render(WidgetCalendarViewModel.RenderNext);
+            }
         }
         [RelayCommand]
         private void RenderPrevious()
         {
-            Render(WidgetCalendarViewModel.RenderPrevious);
+            if (!AnimateOnPrev)
+            {
+                AnimateOnPrev = true;
+                Render(WidgetCalendarViewModel.RenderPrevious);
+            }
         }
         [RelayCommand]
         private void ShowToday()
@@ -116,6 +130,8 @@ namespace SambatWidget.UI.ViewModels
             WidgetCalendarViewModel.ReRender();
             WidgetHeaderViewModel.InitHeader();
         }
+        [RelayCommand]
+        private void AnimationCompleted() => AnimateOnNext = AnimateOnPrev = false;
         private void DecideWhenToTransparent()
         {
             if (App.Setting.AllowTransparency)

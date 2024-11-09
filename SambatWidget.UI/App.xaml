@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:SambatWidget.UI.Converters"
     xmlns:local="clr-namespace:SambatWidget.UI"
+    xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -55,6 +56,7 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:EnglishToNepaliNumberConverter x:Key="EnglishToNepaliNumberConverter" />
             <ResourceDictionary.MergedDictionaries>
+                <xf:XamlFlairResources />
                 <ResourceDictionary Source="/Resources/Fonts/Fonts.xaml" />
                 <ResourceDictionary Source="/Resources/WidgetContextMenus.xaml" />
                 <ResourceDictionary Source="/Resources/Themes/BaseStyle.xaml" />

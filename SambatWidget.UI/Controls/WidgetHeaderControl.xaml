@@ -6,6 +6,7 @@
     xmlns:helpers="clr-namespace:SambatWidget.UI.Helpers"
     xmlns:local="clr-namespace:SambatWidget.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">

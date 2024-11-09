@@ -143,10 +143,10 @@ namespace SambatWidget.Core
             }
 
             // Adjust trailingDaysCount if the calendar fits within 5 rows
-            if (_calendarData.Count <= 35)
-            {
-                trailingDaysCount = 35 - _calendarData.Count;
-            }
+            //if (_calendarData.Count <= 35)
+            //{
+            //    trailingDaysCount = 35 - _calendarData.Count;
+            //}
 
             // Add leading days for the next month
             for (int i = 1; i <= trailingDaysCount; i++, currentCellIndex++)

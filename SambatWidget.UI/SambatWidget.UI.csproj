@@ -22,6 +22,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
 	</ItemGroup>
 
 	<ItemGroup>

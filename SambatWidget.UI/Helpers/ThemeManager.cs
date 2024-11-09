@@ -36,13 +36,12 @@ namespace SambatWidget.UI.Helpers
         }
         private static void AddResourceDictionary(string src)
         {
-            try
+            var themeResource = App.Current.Resources.MergedDictionaries.LastOrDefault();
+            if (themeResource is not null)
             {
-                var themeResource = App.Current.Resources.MergedDictionaries[3];
                 themeResource.MergedDictionaries.Clear();
                 themeResource.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri($"/Resources/Themes/{src}", UriKind.Relative) });
             }
-            catch { }
         }
     }
 }
