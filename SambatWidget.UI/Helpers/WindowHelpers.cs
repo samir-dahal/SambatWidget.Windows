@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace SambatWidget.UI.Helpers
 {
@@ -108,21 +109,51 @@ namespace SambatWidget.UI.Helpers
                         (int)NativeMethods.SWP.NOACTIVATE |
                         (int)NativeMethods.SWP.NOMOVE |
                         (int)NativeMethods.SWP.NOSIZE);
-                    //NativeMethods.SetWindowPos(thisWin.Handle, (IntPtr)HWND_NOTOPMOST, 0, 0, 0, 0, SWP_ASYNCWINDOWPOS | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
                     break;
                 }
             }
         }
         public static void CalculateWindowMoveOffset(this Window window)
         {
-            var desktopWorkingArea = SystemParameters.WorkArea;
+            var windowInteropHelper = new WindowInteropHelper(window);
+            var hwnd = windowInteropHelper.Handle;
 
-            double top = App.Setting.AllowGlobalPosition ? SystemParameters.VirtualScreenHeight : desktopWorkingArea.Bottom;
-            double left = App.Setting.AllowGlobalPosition ? SystemParameters.VirtualScreenWidth : desktopWorkingArea.Right;
+            // Determine the screen where the window is currently located
+            var screen = Screen.FromHandle(hwnd);
 
-            window.Top = Math.Max(0, Math.Min(top - window.ActualHeight, window.Top));
-            window.Left = Math.Max(0, Math.Min(left - window.ActualWidth, window.Left));
+            // Get the bounds and working area of the current screen
+            var screenBounds = screen.Bounds;
+            var workingArea = screen.WorkingArea;
+
+            // Convert bounds and working area to WPF coordinates
+            var dpiScaleX = VisualTreeHelper.GetDpi(window).DpiScaleX;
+            var dpiScaleY = VisualTreeHelper.GetDpi(window).DpiScaleY;
+
+            double workingAreaLeft = workingArea.Left / dpiScaleX;
+            double workingAreaTop = workingArea.Top / dpiScaleY;
+            double workingAreaWidth = workingArea.Width / dpiScaleX;
+            double workingAreaHeight = workingArea.Height / dpiScaleY;
+
+            double screenBoundsLeft = screenBounds.Left / dpiScaleX;
+            double screenBoundsTop = screenBounds.Top / dpiScaleY;
+            double screenBoundsWidth = screenBounds.Width / dpiScaleX;
+            double screenBoundsHeight = screenBounds.Height / dpiScaleY;
+
+            // Determine the bounds based on AllowGlobalPosition
+            double allowedTop = App.Setting.AllowGlobalPosition ? screenBoundsTop : workingAreaTop;
+            double allowedLeft = App.Setting.AllowGlobalPosition ? screenBoundsLeft : workingAreaLeft;
+            double allowedBottom = App.Setting.AllowGlobalPosition
+                ? screenBoundsTop + screenBoundsHeight
+                : workingAreaTop + workingAreaHeight;
+            double allowedRight = App.Setting.AllowGlobalPosition
+                ? screenBoundsLeft + screenBoundsWidth
+                : workingAreaLeft + workingAreaWidth;
+
+            // Adjust window position based on the calculated bounds
+            window.Top = Math.Max(allowedTop, Math.Min(allowedBottom - window.ActualHeight, window.Top));
+            window.Left = Math.Max(allowedLeft, Math.Min(allowedRight - window.ActualWidth, window.Left));
         }
+
         public static bool IsForegroundFullscreen()
         {
             // Pre-allocate 256 characters, since this is the maximum class name length.

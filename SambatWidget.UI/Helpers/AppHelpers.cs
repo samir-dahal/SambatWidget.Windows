@@ -56,7 +56,7 @@ namespace SambatWidget.UI.Helpers
             {
                 if (!string.IsNullOrWhiteSpace(text))
                 {
-                    Clipboard.SetText(text);
+                    System.Windows.Clipboard.SetText(text);
                 }
                 return true;
             }

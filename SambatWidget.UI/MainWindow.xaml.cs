@@ -111,7 +111,7 @@ namespace SambatWidget.UI
             _widgetObserver.RestartScrollTimer();
             _widgetObserver.SetScrollDelta(e.Delta);
         }
-        protected override void OnKeyUp(KeyEventArgs e)
+        protected override void OnKeyUp(System.Windows.Input.KeyEventArgs e)
         {
             base.OnKeyUp(e);
             _vm.HideEventPopupCommand.Execute(null);

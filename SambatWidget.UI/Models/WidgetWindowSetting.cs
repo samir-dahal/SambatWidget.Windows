@@ -7,7 +7,7 @@ namespace SambatWidget.UI.Models
         public bool Loaded { get; private set; }
         public bool DefaultPositionSet { get; private set; }
         public bool IsRenderedAfterMouseAction { get; private set; }
-        public Point Position { get; private set; }
+        public System.Windows.Point Position { get; private set; }
         public double WindowHeight { get; private set; }
         public WidgetWindowSetting()
         {
@@ -23,7 +23,7 @@ namespace SambatWidget.UI.Models
         }
         public void SetPosition(double x, double y)
         {
-            Position = new Point(x, y);
+            Position = new System.Windows.Point(x, y);
             App.Setting.Save(x => x.Position = Position);
         }
         public void SetDefaultPosition(Action action)
