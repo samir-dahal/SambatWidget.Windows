@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:SambatWidget.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SambatWidget.UI.ViewModels"
-    Title="Settings v1.1.5"
+    Title="Settings v1.1.6"
     Width="400"
     Height="450"
     Background="{DynamicResource BackgroundColor}"

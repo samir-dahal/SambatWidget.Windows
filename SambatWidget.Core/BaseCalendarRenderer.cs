@@ -32,7 +32,7 @@ namespace SambatWidget.Core
         public virtual string GetConsecutiveEnglishYearsPair()
         {
             int engYear = _carouselNepDate.EnglishDate.Year;
-            int nextEngYear = _carouselNepDate.MonthEndDate.EnglishDate.Year;
+            int nextEngYear = _carouselNepDate.MonthEndDate().EnglishDate.Year;
             if (engYear != nextEngYear)
             {
                 return $"{engYear}/{nextEngYear}";
@@ -45,7 +45,7 @@ namespace SambatWidget.Core
         public string GetConsecutiveEnglishMonthsPair()
         {
             string engMonth = new NepaliDate(_carouselNepDate.Year, _carouselNepDate.Month, 1).EnglishDate.ToString("MMM");
-            string nextEngMonth = _carouselNepDate.MonthEndDate.EnglishDate.ToString("MMM");
+            string nextEngMonth = _carouselNepDate.MonthEndDate().EnglishDate.ToString("MMM");
             return $"{engMonth}/{nextEngMonth}";
         }
         public int? GetRemainingDays()
@@ -56,13 +56,13 @@ namespace SambatWidget.Core
                 return null;
             }
             //show 1 day as remaining day if end of the month and today is the same day
-            if (_carouselNepDate == _carouselNepDate.MonthEndDate)
+            if (_carouselNepDate == _carouselNepDate.MonthEndDate())
             {
                 return 1;
             }
             else
             {
-                int remainingDays = _carouselNepDate.MonthEndDate.Day - _carouselNepDate.Day;
+                int remainingDays = _carouselNepDate.MonthEndDate().Day - _carouselNepDate.Day;
                 return remainingDays;
             }
         }
