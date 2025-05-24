@@ -17,6 +17,9 @@ namespace SambatWidget.UI.ViewModels
         bool globalPosition = App.Setting.AllowGlobalPosition;
 
         [ObservableProperty]
+        bool stickToDesktop = App.Setting.StickToDesktop;
+
+        [ObservableProperty]
         bool autoRunAtStartup = App.Setting.AutoRunAtStartup;
 
         [ObservableProperty]
@@ -33,6 +36,9 @@ namespace SambatWidget.UI.ViewModels
 
         [ObservableProperty]
         string dashedFormat;
+
+        [ObservableProperty]
+        bool globalPositionEnabled = !App.Setting.StickToDesktop;
         public WidgetContextMenuViewModel()
         {
             InitCopyTodayContextMenu();
@@ -69,6 +75,20 @@ namespace SambatWidget.UI.ViewModels
         private void ToggleGlobalPosition()
         {
             App.Setting.Save(x => x.AllowGlobalPosition = GlobalPosition);
+        }
+
+        [RelayCommand]
+        private void ToggleStickToDesktop()
+        {
+            GlobalPositionEnabled = !StickToDesktop;
+            App.Setting.Save(x =>
+            {
+                x.StickToDesktop = StickToDesktop;
+                if (StickToDesktop)
+                {
+                    x.AllowGlobalPosition = GlobalPosition = false;
+                }
+            });
         }
 
         [RelayCommand]

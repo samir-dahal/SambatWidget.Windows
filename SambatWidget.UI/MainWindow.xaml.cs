@@ -28,7 +28,14 @@ namespace SambatWidget.UI
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.HideWindowFromAltTab();
-            this.SetWindowsPos();
+            if (App.Setting.StickToDesktop)
+            {
+                this.SetWindowsPos(WindowZOrder.BOTTOM_MOST);
+            }
+            else
+            {
+                this.SetWindowsPos(WindowZOrder.TOP_MOST);
+            }
             InitPosition();
             _settings.SetLoaded();
         }
