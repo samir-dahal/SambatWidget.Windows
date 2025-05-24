@@ -10,13 +10,13 @@ namespace SambatWidget.Core
 {
     public static class WorldClock
     {
-        private static string _apiUrl = "http://worldtimeapi.org";
+        private static string _apiUrl = "https://github.com";
         public static async Task<IEnumerable<string>> GetTimeZonesAsync()
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_apiUrl);
-                var res = await client.GetAsync("/api/timezones");
+                var res = await client.GetAsync("user-attachments/files/20422385/timezones.json");
                 var timezones = await res.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<IEnumerable<string>>(timezones);
             }

@@ -13,6 +13,7 @@ namespace SambatWidget.UI
         private readonly WidgetViewModel _widgetVm;
         private bool _isScrolling;
         private int _scrollDelta;
+        private WindowZOrder? _currentZOrder = null;
         public WidgetObserver(MainWindow observedWindow, WidgetViewModel widgetVm)
         {
             _observedWindow = observedWindow;
@@ -46,29 +47,26 @@ namespace SambatWidget.UI
 
         private void _scrollTimer_Tick(object? sender, EventArgs e)
         {
-            RunObserver(() =>
-            {
-                // Stop the timer
-                _scrollTimer.Stop();
+            // Stop the timer
+            _scrollTimer.Stop();
 
-                // Perform the action after the scrolling has stopped
-                if (!_isScrolling)
-                {
-                    return;
-                }
-                // Perform the action here
-                if (_scrollDelta < 0)
-                {
-                    //scrolled down
-                    _widgetVm.RenderNextCommand.Execute(null);
-                }
-                else
-                {
-                    //scrolled up
-                    _widgetVm.RenderPreviousCommand.Execute(null);
-                }
-                _isScrolling = false;
-            });
+            // Perform the action after the scrolling has stopped
+            if (!_isScrolling)
+            {
+                return;
+            }
+            // Perform the action here
+            if (_scrollDelta < 0)
+            {
+                //scrolled down
+                _widgetVm.RenderNextCommand.Execute(null);
+            }
+            else
+            {
+                //scrolled up
+                _widgetVm.RenderPreviousCommand.Execute(null);
+            }
+            _isScrolling = false;
         }
 
         private void StopRelocation()
@@ -79,21 +77,37 @@ namespace SambatWidget.UI
         {
             _relocationTimer.Start();
         }
+        /// <summary>
+        /// this is only for Free Positioning / Gloabl Position as this will be on top of everything (even taskbar)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _relocationTimer_Tick(object? sender, EventArgs e)
         {
-            RunObserver(() => _observedWindow.MoveWindowToTopMost());
+            _observedWindow.MoveWindowToTopMost();
         }
         private void _timer_Tick(object? sender, EventArgs e)
         {
-            RunObserver(() =>
-            {
-                RelocateWindow();
-                FullScreenCheck();
-                TimeZoneUpdate();
-            });
+            ApplyWindowZOrder();
+            RelocateWindow();
+            FullScreenCheck();
+            TimeZoneUpdate();
         }
+
+        private void ApplyWindowZOrder()
+        {
+            var desiredZOrder = App.Setting.StickToDesktop ? WindowZOrder.BOTTOM_MOST : WindowZOrder.TOP_MOST;
+
+            if (_currentZOrder != desiredZOrder)
+            {
+                _observedWindow.SetWindowsPos(desiredZOrder);
+                _currentZOrder = desiredZOrder;
+            }
+        }
+
         private void FullScreenCheck()
         {
+            if (App.Setting.StickToDesktop) return;
             bool isForegroundFullScreen = WindowHelpers.IsForegroundFullscreen();
             if (isForegroundFullScreen)
             {
@@ -122,26 +136,6 @@ namespace SambatWidget.UI
             {
                 StartRelocation();
             }
-        }
-        private void RunObserver(Action timerAction)
-        {
-            if (App.IsShuttingDown)
-            {
-                StopObserve();
-                return;
-            }
-            timerAction?.Invoke();
-        }
-        private void StopObserve()
-        {
-            _timer.Stop();
-            _timer.Tick -= _timer_Tick;
-
-            _relocationTimer.Stop();
-            _relocationTimer.Tick -= _relocationTimer_Tick;
-
-            _scrollTimer.Stop();
-            _scrollTimer.Tick -= _scrollTimer_Tick;
         }
     }
 }

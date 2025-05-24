@@ -13,7 +13,8 @@ namespace SambatWidget.UI.Models
         public bool MinimizeOnLostFocus { get; set; }
         public bool ShowTimeZoneOffset { get; set; }
         public bool AutoRunAtStartup { get; set; }
-        public bool AllowGlobalPosition { get; set; } = true;
+        public bool AllowGlobalPosition { get; set; } = false;
+        public bool StickToDesktop { get; set; } = true;
         public string Theme { get; set; } = "LightTheme";
         public Point Position { get; set; }
         public bool IsNepali { get; set; }

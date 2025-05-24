@@ -40,9 +40,27 @@
             IsChecked="{Binding AllowTransparency}" />
         <MenuItem
             Command="{Binding WidgetContextMenuViewModel.ToggleGlobalPositionCommand}"
-            Header="Allow Global Position"
+            Header="Free Positioning"
             IsCheckable="True"
-            IsChecked="{Binding WidgetContextMenuViewModel.GlobalPosition}" />
+            IsChecked="{Binding WidgetContextMenuViewModel.GlobalPosition}"
+            IsEnabled="{Binding WidgetContextMenuViewModel.GlobalPositionEnabled}" />
+        <MenuItem
+            Command="{Binding WidgetContextMenuViewModel.ToggleStickToDesktopCommand}"
+            Header="Stick to Desktop"
+            IsCheckable="True"
+            IsChecked="{Binding WidgetContextMenuViewModel.StickToDesktop}">
+            <MenuItem.Style>
+                <Style TargetType="MenuItem">
+                    <Style.Triggers>
+                        <Trigger Property="Header" Value="Stick to Desktop">
+                            <Setter Property="Background" Value="LightBlue" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Foreground" Value="DarkBlue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </MenuItem.Style>
+        </MenuItem>
         <MenuItem
             Command="{Binding ToggleTimeZoneCommand}"
             Header="Show Timezone"
@@ -50,7 +68,7 @@
             IsChecked="{Binding ShowTimeZone}" />
         <MenuItem
             Command="{Binding WidgetContextMenuViewModel.ToggleMinimizeOnLostFocusCommand}"
-            Header="Minimize On Lost Focus"
+            Header="Auto Collapse"
             IsCheckable="True"
             IsChecked="{Binding WidgetContextMenuViewModel.MinimizeOnLostFocus}" />
         <MenuItem
