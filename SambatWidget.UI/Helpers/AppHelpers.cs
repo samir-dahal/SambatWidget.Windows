@@ -4,6 +4,7 @@ using System.Windows;
 using SambatWidget.UI.Models;
 using SambatWidget.Core;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace SambatWidget.UI.Helpers
 {
@@ -14,7 +15,7 @@ namespace SambatWidget.UI.Helpers
         private const string SETTING_FILE = "sambatwidget.json";
         private const string DEFAULT_EVENT_FILE_PATH = "./Resources/events_minified.json";
         private const string EVENT_FILE = "events_minified.json";
-        public static string GetAppDirectoryFilePath(string fileName)
+        public static string GetAppDirectoryFilePath(string? fileName)
         {
             if (!string.IsNullOrWhiteSpace(fileName))
             {
@@ -91,7 +92,7 @@ namespace SambatWidget.UI.Helpers
                     EventParser.ParseEventsJson(GetAppDirectoryFilePath(EVENT_FILE));
                 }
                 string json = File.ReadAllText(settingFilePath);
-                return JsonConvert.DeserializeObject<SettingModel>(json);
+                return JsonConvert.DeserializeObject<SettingModel>(json)!;
             }
             catch
             {
@@ -109,18 +110,25 @@ namespace SambatWidget.UI.Helpers
         }
         private static void CoreAutoStartAtStartup(bool enable)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_PATH, true);
-            if (enable)
+            using (var key = Registry.CurrentUser.OpenSubKey(REGISTRY_PATH, writable: true)
+                           ?? Registry.CurrentUser.CreateSubKey(REGISTRY_PATH))
             {
-                string dirPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string startPath = Path.Combine(dirPath, $"{APP_NAME}.exe");
-                key.SetValue(APP_NAME, startPath);
+                if (key == null)
+                    throw new InvalidOperationException("Failed to access or create startup registry key.");
+
+                if (enable)
+                {
+                    string exePath = Process.GetCurrentProcess().MainModule?.FileName
+                                     ?? throw new InvalidOperationException("Unable to determine executable path.");
+
+                    key.SetValue(APP_NAME, exePath, RegistryValueKind.String);
+                }
+                else
+                {
+                    if (key.GetValue(APP_NAME) != null)
+                        key.DeleteValue(APP_NAME);
+                }
             }
-            else
-            {
-                key.DeleteValue(APP_NAME, false);
-            }
-            key.Close();
         }
     }
 }

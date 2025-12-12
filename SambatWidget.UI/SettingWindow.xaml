@@ -7,22 +7,20 @@
     xmlns:local="clr-namespace:SambatWidget.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SambatWidget.UI.ViewModels"
+    xmlns:xct="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="Settings v1.1.6"
     Width="400"
     Height="450"
     Background="{DynamicResource BackgroundColor}"
     ResizeMode="CanMinimize"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <vm:SettingViewModel />
-    </Window.DataContext>
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TabControl Background="{DynamicResource BackgroundColor}">
+            <TabControl x:Name="TabControl" Background="{DynamicResource BackgroundColor}">
                 <TabItem Header="User Interface" Style="{StaticResource TabItemStyle}">
                     <Border Padding="5">
                         <StackPanel>
@@ -30,8 +28,7 @@
                             <ComboBox
                                 DisplayMemberPath="Key"
                                 ItemsSource="{Binding Themes}"
-                                SelectedItem="{Binding SelectedTheme}"
-                                SelectedValuePath="Value" />
+                                SelectedItem="{Binding SelectedTheme}" />
                         </StackPanel>
                     </Border>
                 </TabItem>
@@ -42,7 +39,18 @@
                             <ComboBox
                                 IsEditable="True"
                                 ItemsSource="{Binding TimeZones}"
-                                SelectedItem="{Binding SelectedTimeZone}" />
+                                ScrollViewer.CanContentScroll="True"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
+                                SelectedItem="{Binding SelectedTimeZone}"
+                                SelectedValuePath="Value"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
                             <CheckBox
                                 Margin="0,5,0,0"
                                 Content="Show Offset"
@@ -51,6 +59,28 @@
                                 Foreground="{DynamicResource MutedColor}"
                                 Style="{StaticResource text-sm}"
                                 Text="Only visible on collapsed header" />
+
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                Style="{StaticResource text-body}"
+                                Text="Timezone Time?" />
+                            <xct:DateTimePicker
+                                AutoCloseCalendar="True"
+                                Format="Custom"
+                                FormatString="dd MMM yyyy hh:mm tt"
+                                ShowButtonSpinner="True"
+                                TimePickerVisibility="Visible"
+                                Value="{Binding TargetTimeZoneTime}" />
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource text-semibold}"
+                                Text="Nepal Time" />
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource text-bold}"
+                                Text="{Binding NepalTime}" />
                         </StackPanel>
                     </Border>
                 </TabItem>

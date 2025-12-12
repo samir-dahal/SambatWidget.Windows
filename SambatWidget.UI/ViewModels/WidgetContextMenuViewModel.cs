@@ -23,19 +23,19 @@ namespace SambatWidget.UI.ViewModels
         bool autoRunAtStartup = App.Setting.AutoRunAtStartup;
 
         [ObservableProperty]
-        string defaultFormat;
+        string defaultFormat = null!;
 
         [ObservableProperty]
-        string longDateFormat;
+        string longDateFormat = null!;
 
         [ObservableProperty]
-        string unicodeFormat;
+        string unicodeFormat = null!;
 
         [ObservableProperty]
-        string longUnicodeFormat;
+        string longUnicodeFormat = null!;
 
         [ObservableProperty]
-        string dashedFormat;
+        string dashedFormat = null!;
 
         [ObservableProperty]
         bool globalPositionEnabled = !App.Setting.StickToDesktop;
@@ -64,6 +64,11 @@ namespace SambatWidget.UI.ViewModels
         private void ShowSetting()
         {
             new SettingWindow().ShowDialog();
+        }
+        [RelayCommand]
+        private void ShowTimeZoneSetting()
+        {
+            new SettingWindow(tabIndex: 1).ShowDialog();
         }
         [RelayCommand]
         private void Exit()

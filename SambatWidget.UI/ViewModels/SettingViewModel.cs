@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NepDate.Extensions;
 using SambatWidget.Core;
 using SambatWidget.UI.Helpers;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace SambatWidget.UI.ViewModels
@@ -21,12 +23,39 @@ namespace SambatWidget.UI.ViewModels
         string selectedTimeZone = App.Setting.TimeZone;
 
         [ObservableProperty]
+        DateTime targetTimeZoneTime = DateTime.Now;
+
+        [ObservableProperty]
         bool showTimeZoneOffset = App.Setting.ShowTimeZoneOffset;
+
+        [ObservableProperty]
+        string nepalTime = null!;
         public SettingViewModel()
         {
             TimeZones = new WpfObservableRangeCollection<string>();
             DateConverterViewModel = new DateConverterViewModel();
-            GetTimeZonesAsync().FireAndForget();
+            var timeZone = WorldClock.GetTimeZoneData(SelectedTimeZone);
+            if (timeZone is not null)
+            {
+                TargetTimeZoneTime = timeZone.TargetDateTime;
+            }
+        }
+        partial void OnSelectedTimeZoneChanged(string value)
+        {
+            UpdateNepalTime();
+        }
+
+        partial void OnTargetTimeZoneTimeChanged(DateTime value)
+        {
+            UpdateNepalTime();
+        }
+
+        private void UpdateNepalTime()
+        {
+            var time = WorldClock.ConvertToNepalTime(TargetTimeZoneTime, SelectedTimeZone);
+            if (time is null) return;
+            string nepalTimePart = time.Value.ToString("hh:mm tt");
+            NepalTime = $"{time.Value.ToNepaliDate().ToLongDateString()} {nepalTimePart}";
         }
 
         [RelayCommand]
@@ -44,10 +73,10 @@ namespace SambatWidget.UI.ViewModels
         }
         private void SaveUIChanges()
         {
-            if (selectedTheme.Key != previousTheme.Key)
+            if (SelectedTheme.Key != previousTheme.Key)
             {
-                ThemeManager.ApplyTheme(selectedTheme.Value);
-                previousTheme = selectedTheme;
+                ThemeManager.ApplyTheme(SelectedTheme.Value);
+                previousTheme = SelectedTheme;
             }
         }
         private void SaveTimeZoneChanges()
@@ -55,10 +84,10 @@ namespace SambatWidget.UI.ViewModels
             App.Setting.TimeZone = SelectedTimeZone;
             App.Setting.ShowTimeZoneOffset = ShowTimeZoneOffset;
         }
-        private async Task GetTimeZonesAsync()
+        public async Task GetTimeZonesAsync()
         {
             var timeZones = await WorldClock.GetTimeZonesAsync();
-            TimeZones.AddRange(timeZones);
+            TimeZones.ReplaceRange(timeZones);
         }
     }
 }

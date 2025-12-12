@@ -77,6 +77,7 @@
             IsCheckable="True"
             IsChecked="{Binding WidgetContextMenuViewModel.AutoRunAtStartup}" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowSettingCommand}" Header="Settings" />
+        <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowTimeZoneSettingCommand}" Header="Timezone Settings - Quick" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ExitCommand}" Header="Exit" />
     </ContextMenu>
 </ResourceDictionary>

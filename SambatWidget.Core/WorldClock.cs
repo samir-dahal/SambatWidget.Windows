@@ -25,21 +25,31 @@ namespace SambatWidget.Core
         {
             try
             {
-                DateTime currentDateTime = DateTime.UtcNow;
-                TimeZoneInfo targetTimeZoneInfo = TZConvert.GetTimeZoneInfo(targetTimeZone);
-                DateTime targetDateTime = TimeZoneInfo.ConvertTimeFromUtc(currentDateTime, targetTimeZoneInfo);
+                DateTime utcNow = DateTime.UtcNow;
 
-                TimeSpan localOffset = TimeZoneInfo.Local.GetUtcOffset(currentDateTime);
-                TimeSpan targetOffset = targetTimeZoneInfo.GetUtcOffset(targetDateTime);
-                TimeSpan timeDifference = targetOffset - localOffset;
+                TimeZoneInfo targetTz = TZConvert.GetTimeZoneInfo(targetTimeZone);
+                TimeZoneInfo nepalTz = TZConvert.GetTimeZoneInfo("Asia/Kathmandu");
 
-                string timeDifferenceString = (timeDifference < TimeSpan.Zero ? "-" : "+") + timeDifference.ToString(@"hh\:mm");
-                string city = SanitizeTimeZoneCity(targetTimeZone);
+                // Target time
+                DateTime targetDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, targetTz);
+
+                // Nepal time (converted from target time)
+                DateTime utcFromTarget = TimeZoneInfo.ConvertTimeToUtc(targetDateTime, targetTz);
+                DateTime nepalDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcFromTarget, nepalTz);
+
+                // Time difference from LOCAL PC time
+                TimeSpan localOffset = TimeZoneInfo.Local.GetUtcOffset(utcNow);
+                TimeSpan targetOffset = targetTz.GetUtcOffset(targetDateTime);
+                TimeSpan difference = targetOffset - localOffset;
+
+                string offsetStr = (difference < TimeSpan.Zero ? "-" : "+") + difference.ToString(@"hh\:mm");
+
                 return new TimeZoneModel
                 {
-                    City = city,
-                    Offset = timeDifferenceString,
+                    City = SanitizeTimeZoneCity(targetTimeZone),
+                    Offset = offsetStr,
                     TargetDateTime = targetDateTime,
+                    NepalDateTime = nepalDateTime
                 };
             }
             catch
@@ -47,6 +57,28 @@ namespace SambatWidget.Core
                 return null;
             }
         }
+        public static DateTime? ConvertToNepalTime(DateTime foreignDateTime, string foreignTimeZone)
+        {
+            try
+            {
+                TimeZoneInfo foreignTz = TZConvert.GetTimeZoneInfo(foreignTimeZone);
+                TimeZoneInfo nepalTz = TZConvert.GetTimeZoneInfo("Asia/Kathmandu");
+
+                // Step 1: Convert foreign time → UTC
+                DateTime utc = TimeZoneInfo.ConvertTimeToUtc(foreignDateTime, foreignTz);
+
+                // Step 2: Convert UTC → Nepal time
+                DateTime nepalTime = TimeZoneInfo.ConvertTimeFromUtc(utc, nepalTz);
+
+                return nepalTime;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
         private static string SanitizeTimeZoneCity(string input)
         {
             int lastSlashIndex = input.LastIndexOf('/');

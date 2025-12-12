@@ -13,10 +13,10 @@ namespace SambatWidget.UI.ViewModels
         string nepaliDate = DateConverter.GetCurrentNepaliDate();
 
         [ObservableProperty]
-        string convertedNepaliDate;
+        string convertedNepaliDate = null!;
 
         [ObservableProperty]
-        string convertedEnglishDate;
+        string convertedEnglishDate = null!;
 
         [RelayCommand]
         private void ConvertToEnglish()

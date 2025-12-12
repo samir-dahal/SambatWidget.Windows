@@ -7,6 +7,7 @@ namespace SambatWidget.Core.Models
         public string City { get; set; }
         public string Offset { get; set; }
         public DateTime TargetDateTime { get; set; }
+        public DateTime NepalDateTime { get; set; }
         public override string ToString()
         {
             return $"{City} {TargetDateTime.ToString("hh:mm tt")}";

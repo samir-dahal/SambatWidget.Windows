@@ -4,20 +4,15 @@ namespace SambatWidget.UI.Helpers
 {
     public static class ThemeManager
     {
-        public static IDictionary<string, string> Themes
+        private static readonly IDictionary<string, string> _themes = new Dictionary<string, string>
         {
-            get
-            {
-                return new Dictionary<string, string>
-                {
-                    {"Light", "LightTheme" },
-                    {"Dark", "DarkTheme" },
-                    {"Black", "Black" },
-                    {"Solarize Dark", "SolarizedDark" },
-                    {"Nord", "Nord" },
-                };
-            }
-        }
+            { "Light", "LightTheme" },
+            { "Dark", "DarkTheme" },
+            { "Black", "Black" },
+            { "Solarize Dark", "SolarizedDark" },
+            { "Nord", "Nord" },
+        };
+        public static IDictionary<string, string> Themes => _themes;
         public static void ApplyTheme(string themeName)
         {
             AddResourceDictionary($"{themeName}.xaml");

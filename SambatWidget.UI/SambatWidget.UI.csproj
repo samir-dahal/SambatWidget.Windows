@@ -20,9 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
