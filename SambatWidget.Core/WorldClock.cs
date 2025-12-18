@@ -2,6 +2,7 @@
 using SambatWidget.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TimeZoneConverter;
@@ -57,25 +58,64 @@ namespace SambatWidget.Core
                 return null;
             }
         }
-        public static DateTime? ConvertToNepalTime(DateTime foreignDateTime, string foreignTimeZone)
+        private static string ConvertTime(
+        string time,
+        string fromTimeZone,
+        string toTimeZone)
         {
             try
             {
-                TimeZoneInfo foreignTz = TZConvert.GetTimeZoneInfo(foreignTimeZone);
-                TimeZoneInfo nepalTz = TZConvert.GetTimeZoneInfo("Asia/Kathmandu");
+                // Smart parse (supports 10:30, 10:30 PM, 22:30, etc.)
+                if (!DateTime.TryParse(
+                        time,
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.AllowWhiteSpaces,
+                        out var parsedTime))
+                {
+                    return null;
+                }
 
-                // Step 1: Convert foreign time → UTC
-                DateTime utc = TimeZoneInfo.ConvertTimeToUtc(foreignDateTime, foreignTz);
+                TimeZoneInfo fromTz = TZConvert.GetTimeZoneInfo(fromTimeZone);
+                TimeZoneInfo toTz = TZConvert.GetTimeZoneInfo(toTimeZone);
 
-                // Step 2: Convert UTC → Nepal time
-                DateTime nepalTime = TimeZoneInfo.ConvertTimeFromUtc(utc, nepalTz);
+                // Get today's date in source timezone
+                DateTime fromToday = TimeZoneInfo.ConvertTime(DateTime.UtcNow, fromTz);
 
-                return nepalTime;
+                // Combine date + parsed time
+                DateTime fromDateTime = new DateTime(
+                    fromToday.Year,
+                    fromToday.Month,
+                    fromToday.Day,
+                    parsedTime.Hour,
+                    parsedTime.Minute,
+                    0,
+                    DateTimeKind.Unspecified);
+
+                // Convert source → UTC → target
+                DateTime utc = TimeZoneInfo.ConvertTimeToUtc(fromDateTime, fromTz);
+                DateTime targetTime = TimeZoneInfo.ConvertTimeFromUtc(utc, toTz);
+
+                // Always return AM/PM
+                return targetTime.ToString("hh:mm tt", CultureInfo.InvariantCulture);
             }
             catch
             {
                 return null;
             }
+        }
+        public static string ConvertNepalToForeign(string nepalTime, string foreignTimeZone)
+        {
+            return ConvertTime(
+                nepalTime,
+                "Asia/Kathmandu",
+                foreignTimeZone);
+        }
+        public static string? ConvertForeignToNepal(string foreignTime, string foreignTimeZone)
+        {
+            return ConvertTime(
+                foreignTime,
+                foreignTimeZone,
+                "Asia/Kathmandu");
         }
 
 

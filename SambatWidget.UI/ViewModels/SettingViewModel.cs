@@ -23,13 +23,19 @@ namespace SambatWidget.UI.ViewModels
         string selectedTimeZone = App.Setting.TimeZone;
 
         [ObservableProperty]
-        DateTime targetTimeZoneTime = DateTime.Now;
+        string targetTimeZoneTime = DateTime.Now.ToString("hh:mm tt");
+
+        [ObservableProperty]
+        string nepalTimeZoneTime = DateTime.Now.ToString("hh:mm tt");
 
         [ObservableProperty]
         bool showTimeZoneOffset = App.Setting.ShowTimeZoneOffset;
 
         [ObservableProperty]
         string nepalTime = null!;
+
+        [ObservableProperty]
+        string foreignTime = null!;
         public SettingViewModel()
         {
             TimeZones = new WpfObservableRangeCollection<string>();
@@ -37,7 +43,8 @@ namespace SambatWidget.UI.ViewModels
             var timeZone = WorldClock.GetTimeZoneData(SelectedTimeZone);
             if (timeZone is not null)
             {
-                TargetTimeZoneTime = timeZone.TargetDateTime;
+                TargetTimeZoneTime = timeZone.TargetDateTime.ToString("hh:mm tt");
+                ForeignTime = timeZone.TargetDateTime.ToString("hh:mm tt");
             }
         }
         partial void OnSelectedTimeZoneChanged(string value)
@@ -45,17 +52,21 @@ namespace SambatWidget.UI.ViewModels
             UpdateNepalTime();
         }
 
-        partial void OnTargetTimeZoneTimeChanged(DateTime value)
+        partial void OnTargetTimeZoneTimeChanged(string value)
         {
             UpdateNepalTime();
         }
-
+        partial void OnNepalTimeZoneTimeChanged(string value)
+        {
+            var time = WorldClock.ConvertNepalToForeign(value, SelectedTimeZone);
+            if (time is null) return;
+            ForeignTime = time;
+        }
         private void UpdateNepalTime()
         {
-            var time = WorldClock.ConvertToNepalTime(TargetTimeZoneTime, SelectedTimeZone);
+            var time = WorldClock.ConvertForeignToNepal(TargetTimeZoneTime, SelectedTimeZone);
             if (time is null) return;
-            string nepalTimePart = time.Value.ToString("hh:mm tt");
-            NepalTime = $"{time.Value.ToNepaliDate().ToLongDateString()} {nepalTimePart}";
+            NepalTime = time; 
         }
 
         [RelayCommand]

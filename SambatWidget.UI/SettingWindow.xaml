@@ -59,18 +59,12 @@
                                 Foreground="{DynamicResource MutedColor}"
                                 Style="{StaticResource text-sm}"
                                 Text="Only visible on collapsed header" />
-
+                            <!--  foreign to nepal  -->
                             <TextBlock
                                 Margin="0,5,0,0"
                                 Style="{StaticResource text-body}"
                                 Text="Timezone Time?" />
-                            <xct:DateTimePicker
-                                AutoCloseCalendar="True"
-                                Format="Custom"
-                                FormatString="dd MMM yyyy hh:mm tt"
-                                ShowButtonSpinner="True"
-                                TimePickerVisibility="Visible"
-                                Value="{Binding TargetTimeZoneTime}" />
+                            <TextBox Style="{StaticResource text-box}" Text="{Binding TargetTimeZoneTime, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Center"
@@ -81,6 +75,22 @@
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource text-bold}"
                                 Text="{Binding NepalTime}" />
+                            <!--  nepal to foreign  -->
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                Style="{StaticResource text-body}"
+                                Text="Nepal Time?" />
+                            <TextBox Style="{StaticResource text-box}" Text="{Binding NepalTimeZoneTime, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource text-semibold}"
+                                Text="{Binding SelectedTimeZone}" />
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource text-bold}"
+                                Text="{Binding ForeignTime}" />
                         </StackPanel>
                     </Border>
                 </TabItem>
