@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SambatWidget.UI.ViewModels"
     xmlns:xct="http://schemas.xceed.com/wpf/xaml/toolkit"
-    Title="Settings v1.1.6"
+    Title="Settings v1.1.7"
     Width="400"
     Height="450"
     Background="{DynamicResource BackgroundColor}"
