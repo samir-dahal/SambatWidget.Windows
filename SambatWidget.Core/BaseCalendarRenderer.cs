@@ -133,13 +133,13 @@ namespace SambatWidget.Core
             // Add the current month's days
             for (int day = 1; day <= totalDaysInCurrMonth; day++, currentCellIndex++)
             {
-                string yearMonthKey = GetYearMonthKey(day);
+                var eventData = EventParser.GetEventByDate(_carouselNepDate.Year, _carouselNepDate.Month, day);
                 _calendarData.Add(new WidgetCalendarCellModel
                 {
                     Day = day,
                     IsToday = day == NepaliDate.Now.Day && isCurrentMonth,
-                    HasEvent = EventParser.HasEvent(yearMonthKey),
-                    HasEventHoliday = EventParser.HasEventHoliday(yearMonthKey),
+                    HasEvent = eventData?.HasEvent ?? false,
+                    HasEventHoliday = eventData?.IsHoliday ?? false,
                 }.SetGridPosition(currentCellIndex));
             }
 

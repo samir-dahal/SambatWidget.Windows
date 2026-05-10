@@ -12,6 +12,7 @@ namespace SambatWidget.UI
         private readonly MainWindow _observedWindow;
         private readonly WidgetViewModel _widgetVm;
         private bool _isScrolling;
+        private bool _isHiddenForFullScreen;
         private int _scrollDelta;
         private WindowZOrder? _currentZOrder = null;
         public WidgetObserver(MainWindow observedWindow, WidgetViewModel widgetVm)
@@ -109,18 +110,23 @@ namespace SambatWidget.UI
         {
             if (App.Setting.StickToDesktop) return;
             bool isForegroundFullScreen = WindowHelpers.IsForegroundFullscreen();
-            if (isForegroundFullScreen)
+            if (isForegroundFullScreen && !_isHiddenForFullScreen)
             {
                 _observedWindow.Hide();
+                _isHiddenForFullScreen = true;
             }
-            else
+            else if (!isForegroundFullScreen && _isHiddenForFullScreen)
             {
                 _observedWindow.Show();
+                _isHiddenForFullScreen = false;
             }
         }
         private void TimeZoneUpdate()
         {
-            _widgetVm.WidgetHeaderViewModel.InitTimeZone();
+            if (App.Setting.ShowTimeZone)
+            {
+                _widgetVm.WidgetHeaderViewModel.InitTimeZone();
+            }
         }
         private void RelocateWindow()
         {

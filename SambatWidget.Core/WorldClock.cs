@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using TimeZoneConverter;
 
@@ -12,14 +13,22 @@ namespace SambatWidget.Core
     public static class WorldClock
     {
         private static string _apiUrl = "https://github.com";
+        private static readonly HttpClient _httpClient = new HttpClient { BaseAddress = new Uri(_apiUrl), };
+        private static readonly Dictionary<string, TimeZoneInfo> _timeZoneCache = new Dictionary<string, TimeZoneInfo>(StringComparer.Ordinal);
+        private static readonly TimeZoneInfo _nepalTz = TZConvert.GetTimeZoneInfo("Asia/Kathmandu");
+        private static readonly object _timeZoneCacheLock = new object();
+
         public static async Task<IEnumerable<string>> GetTimeZonesAsync()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(_apiUrl);
-                var res = await client.GetAsync("user-attachments/files/20422385/timezones.json");
+                var res = await _httpClient.GetAsync("user-attachments/files/20422385/timezones.json");
                 var timezones = await res.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<IEnumerable<string>>(timezones);
+            }
+            catch
+            {
+                return Array.Empty<string>();
             }
         }
         public static TimeZoneModel GetTimeZoneData(string targetTimeZone)
@@ -28,15 +37,14 @@ namespace SambatWidget.Core
             {
                 DateTime utcNow = DateTime.UtcNow;
 
-                TimeZoneInfo targetTz = TZConvert.GetTimeZoneInfo(targetTimeZone);
-                TimeZoneInfo nepalTz = TZConvert.GetTimeZoneInfo("Asia/Kathmandu");
+                TimeZoneInfo targetTz = GetCachedTimeZoneInfo(targetTimeZone);
 
                 // Target time
                 DateTime targetDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, targetTz);
 
                 // Nepal time (converted from target time)
                 DateTime utcFromTarget = TimeZoneInfo.ConvertTimeToUtc(targetDateTime, targetTz);
-                DateTime nepalDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcFromTarget, nepalTz);
+                DateTime nepalDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcFromTarget, _nepalTz);
 
                 // Time difference from LOCAL PC time
                 TimeSpan localOffset = TimeZoneInfo.Local.GetUtcOffset(utcNow);
@@ -75,8 +83,8 @@ namespace SambatWidget.Core
                     return null;
                 }
 
-                TimeZoneInfo fromTz = TZConvert.GetTimeZoneInfo(fromTimeZone);
-                TimeZoneInfo toTz = TZConvert.GetTimeZoneInfo(toTimeZone);
+                TimeZoneInfo fromTz = GetCachedTimeZoneInfo(fromTimeZone);
+                TimeZoneInfo toTz = GetCachedTimeZoneInfo(toTimeZone);
 
                 // Get today's date in source timezone
                 DateTime fromToday = TimeZoneInfo.ConvertTime(DateTime.UtcNow, fromTz);
@@ -116,6 +124,21 @@ namespace SambatWidget.Core
                 foreignTime,
                 foreignTimeZone,
                 "Asia/Kathmandu");
+        }
+
+        private static TimeZoneInfo GetCachedTimeZoneInfo(string timeZoneId)
+        {
+            lock (_timeZoneCacheLock)
+            {
+                if (_timeZoneCache.TryGetValue(timeZoneId, out TimeZoneInfo cached))
+                {
+                    return cached;
+                }
+
+                var created = TZConvert.GetTimeZoneInfo(timeZoneId);
+                _timeZoneCache[timeZoneId] = created;
+                return created;
+            }
         }
 
 

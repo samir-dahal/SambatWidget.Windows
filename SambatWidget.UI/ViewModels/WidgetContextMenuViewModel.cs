@@ -23,6 +23,9 @@ namespace SambatWidget.UI.ViewModels
         bool autoRunAtStartup = App.Setting.AutoRunAtStartup;
 
         [ObservableProperty]
+        string autoRunHealthMessage = string.Empty;
+
+        [ObservableProperty]
         string defaultFormat = null!;
 
         [ObservableProperty]
@@ -42,6 +45,7 @@ namespace SambatWidget.UI.ViewModels
         public WidgetContextMenuViewModel()
         {
             InitCopyTodayContextMenu();
+            RefreshAutoRunHealth();
         }
 
         [RelayCommand]
@@ -99,16 +103,33 @@ namespace SambatWidget.UI.ViewModels
         [RelayCommand]
         private void ToggleAutoRunAtStartup()
         {
+            bool operationSucceeded;
             if (AutoRunAtStartup)
             {
-                AppHelpers.EnableAutoStartAtStartup();
+                operationSucceeded = AppHelpers.EnableAutoStartAtStartup();
             }
             else
             {
-                AppHelpers.DisableAutoStartAtStartup();
+                operationSucceeded = AppHelpers.DisableAutoStartAtStartup();
             }
+
+            if (!operationSucceeded)
+            {
+                AutoRunAtStartup = AppHelpers.IsAutoStartAtStartupEnabled();
+            }
+
+            RefreshAutoRunHealth();
+
             App.Setting.Save(x => x.AutoRunAtStartup = AutoRunAtStartup);
         }
+
+        private void RefreshAutoRunHealth()
+        {
+            var health = AppHelpers.GetAutoStartHealth();
+            AutoRunAtStartup = health.IsEnabled;
+            AutoRunHealthMessage = health.Message;
+        }
+
         public void InitCopyTodayContextMenu()
         {
             DefaultFormat = NepaliDate.Now.ToString();

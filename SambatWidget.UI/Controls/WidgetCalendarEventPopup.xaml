@@ -14,7 +14,7 @@
         PopupAnimation="Fade"
         StaysOpen="False">
         <Border Padding="5" Background="#fff3cd">
-            <StackPanel Width="150">
+            <StackPanel Width="240">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="TextWrapping" Value="Wrap" />
@@ -27,14 +27,25 @@
                 </StackPanel.Resources>
                 <TextBlock
                     FontFamily="{StaticResource FontBold}"
-                    FontSize="15"
-                    Text="{Binding EventInfo.Date, Converter={StaticResource EnglishToNepaliNumberConverter}}" />
+                    FontSize="14"
+                    Text="{Binding EventInfo.NepaliDate}" />
                 <TextBlock
-                    Margin="0,8"
+                    Margin="0,4,0,0"
+                    FontSize="10"
+                    Text="{Binding EventInfo.Tithi}" />
+                <TextBlock
+                    Margin="0,4,0,0"
                     FontFamily="{StaticResource FontSemiBold}"
                     FontSize="10"
-                    Text="{Binding EventInfo.EnglishName}" />
-                <TextBlock FontSize="10" Text="{Binding EventInfo.NepaliName}" />
+                    Text="{Binding EventInfo.EnglishDate}" />
+                <StackPanel Visibility="{Binding EventInfo.HasEvent, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,4"
+                        FontFamily="{StaticResource FontSemiBold}"
+                        FontSize="10"
+                        Text="{Binding EventInfo.EnglishName}" />
+                    <TextBlock FontSize="10" Text="{Binding EventInfo.NepaliName}" />
+                </StackPanel>
             </StackPanel>
         </Border>
     </Popup>

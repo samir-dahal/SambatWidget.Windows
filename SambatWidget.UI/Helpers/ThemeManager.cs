@@ -11,6 +11,16 @@ namespace SambatWidget.UI.Helpers
             { "Black", "Black" },
             { "Solarize Dark", "SolarizedDark" },
             { "Nord", "Nord" },
+            { "Dracula", "Dracula" },
+            { "Gruvbox Dark", "GruvboxDark" },
+            { "Catppuccin Mocha", "CatppuccinMocha" },
+            { "Tokyo Night", "TokyoNight" },
+            { "Forest Night", "ForestNight" },
+            { "Rose Light", "RoseLight" },
+            { "Mint Light", "MintLight" },
+            { "Sky Light", "SkyLight" },
+            { "Sand Light", "SandLight" },
+            { "Lavender Light", "LavenderLight" },
         };
         public static IDictionary<string, string> Themes => _themes;
         public static void ApplyTheme(string themeName)

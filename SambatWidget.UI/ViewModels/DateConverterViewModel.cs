@@ -6,6 +6,12 @@ namespace SambatWidget.UI.ViewModels
 {
     public partial class DateConverterViewModel : ObservableObject
     {
+        public DateConverterViewModel()
+        {
+            ConvertToNepali();
+            ConvertToEnglish();
+        }
+
         [ObservableProperty]
         string englishDate = DateTime.Now.ToString("yyyy/MM/dd");
 

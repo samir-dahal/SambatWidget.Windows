@@ -1,5 +1,4 @@
 ﻿using NepDate;
-using NepDate.Extensions;
 using SambatWidget.Core.Models;
 using System;
 using System.Globalization;
@@ -9,15 +8,18 @@ namespace SambatWidget.Core
 {
     public static class DateConverter
     {
+        private static readonly CultureInfo EnUsCulture = CultureInfo.GetCultureInfo("en-US");
+        private static readonly string[] SupportedParseFormats = new[] { "yyyy/MM/dd", "yyyy/dd/MM", "yyyy/M/d", "yyyy/d/M", "yyyy-M-d", "yyyy-d-M", "yyyy-dd-MM", "yyyy-MM-dd" }
+            .Union(EnUsCulture.DateTimeFormat.GetAllDateTimePatterns())
+            .Distinct()
+            .ToArray();
+
         public static string GetCurrentNepaliDate() => NepaliDate.Now.ToString(DateFormats.YearMonthDay, Separators.ForwardSlash);
         public static DateConvertResult ConvertToNepaliDate(this string engDate)
         {
             try
             {
-                var ci = new CultureInfo("en-US");
-                var formats = new[] { "yyyy/MM/dd", "yyyy/dd/MM", "yyyy/M/d", "yyyy/d/M", "yyyy-M-d", "yyyy-d-M", "yyyy-dd-MM", "yyyy-MM-dd" }
-                        .Union(ci.DateTimeFormat.GetAllDateTimePatterns()).ToArray();
-                var result = DateTime.ParseExact(engDate, formats, ci, DateTimeStyles.AssumeLocal).ToNepaliDate().ToLongDateString(displayDayName: true);
+                var result = DateTime.ParseExact(engDate, SupportedParseFormats, EnUsCulture, DateTimeStyles.AssumeLocal).ToNepaliDate().ToLongDateString(displayDayName: true);
                 return new DateConvertResult(true, result);
             }
             catch

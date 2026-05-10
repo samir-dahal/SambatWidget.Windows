@@ -1,32 +1,12 @@
 ﻿using NepDate;
-using Newtonsoft.Json;
 using SambatWidget.Core.Models;
-using System.Collections.Generic;
-using System.IO;
+using System;
+using System.Linq;
 
 namespace SambatWidget.Core
 {
     public static class EventParser
     {
-        private static Dictionary<string, EventDataModel> _events = new Dictionary<string, EventDataModel>();
-        private static Dictionary<string, string[]> _cachedEvents = new Dictionary<string, string[]>();
-        public static void ParseEventsJson(string path)
-        {
-            try
-            {
-                if (_cachedEvents.Count <= 0)
-                {
-                    _cachedEvents = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(File.ReadAllText(path));
-                    foreach (KeyValuePair<string, string[]> kvp in _cachedEvents)
-                    {
-                        int day = NepaliDate.Parse(kvp.Key).Day;
-                        _events.Add(kvp.Key, new EventDataModel(bool.Parse(kvp.Value[0]), kvp.Value[1], kvp.Value[2], day));
-                    }
-                    _cachedEvents = null;
-                }
-            }
-            catch { }
-        }
         /// <summary>
         /// Get event data by Nepali date format as param yyyy-m-d
         /// </summary>
@@ -34,21 +14,51 @@ namespace SambatWidget.Core
         /// <returns></returns>
         public static EventDataModel GetEventByDate(string date)
         {
-            EventDataModel result = null;
-            if (_events != null)
+            try
             {
-                _events.TryGetValue(date, out result);
+                var nepDate = NepaliDate.Parse(date);
+                return GetEventByDate(nepDate.Year, nepDate.Month, nepDate.Day);
             }
-            return result;
+            catch
+            {
+                return null;
+            }
         }
+
+        public static EventDataModel GetEventByDate(int year, int month, int day)
+        {
+            try
+            {
+                var nepDate = new NepaliDate(year, month, day);
+                var info = nepDate.GetCalendarInfo();
+
+                bool hasEvents = info.EventsNp.Length > 0 || info.EventsEn.Length > 0;
+                string nepaliName = info.EventsNp.Length > 0 ? string.Join(", ", info.EventsNp.Where(x => !string.IsNullOrWhiteSpace(x))) : string.Empty;
+                string englishName = info.EventsEn.Length > 0 ? string.Join(", ", info.EventsEn.Where(x => !string.IsNullOrWhiteSpace(x))) : string.Empty;
+                string tithi = info.TithiNp ?? string.Empty;
+                string nepaliDate = nepDate.ToLongDateUnicodeString();
+                string englishDate = nepDate.EnglishDate.ToLongDateString();
+
+                return new EventDataModel(
+                    info.IsPublicHoliday,
+                    hasEvents,
+                    nepaliName,
+                    englishName,
+                    nepaliDate,
+                    englishDate,
+                    tithi);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static bool HasEvent(string date)
         {
-            if (_events != null)
-            {
-                return _events.ContainsKey(date);
-            }
-            return false;
+            return GetEventByDate(date)?.HasEvent ?? false;
         }
+
         public static bool HasEventHoliday(string date)
         {
             return GetEventByDate(date)?.IsHoliday ?? false;

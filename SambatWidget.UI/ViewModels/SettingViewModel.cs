@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using NepDate.Extensions;
 using SambatWidget.Core;
 using SambatWidget.UI.Helpers;
-using System.ComponentModel;
 using System.Diagnostics;
 
 namespace SambatWidget.UI.ViewModels
@@ -32,6 +30,12 @@ namespace SambatWidget.UI.ViewModels
         bool showTimeZoneOffset = App.Setting.ShowTimeZoneOffset;
 
         [ObservableProperty]
+        bool autoRunAtStartup;
+
+        [ObservableProperty]
+        string autoRunHealthMessage = string.Empty;
+
+        [ObservableProperty]
         string nepalTime = null!;
 
         [ObservableProperty]
@@ -40,6 +44,7 @@ namespace SambatWidget.UI.ViewModels
         {
             TimeZones = new WpfObservableRangeCollection<string>();
             DateConverterViewModel = new DateConverterViewModel();
+            RefreshAutoRunHealth();
             var timeZone = WorldClock.GetTimeZoneData(SelectedTimeZone);
             if (timeZone is not null)
             {
@@ -66,7 +71,7 @@ namespace SambatWidget.UI.ViewModels
         {
             var time = WorldClock.ConvertForeignToNepal(TargetTimeZoneTime, SelectedTimeZone);
             if (time is null) return;
-            NepalTime = time; 
+            NepalTime = time;
         }
 
         [RelayCommand]
@@ -74,6 +79,7 @@ namespace SambatWidget.UI.ViewModels
         {
             SaveUIChanges();
             SaveTimeZoneChanges();
+            SaveAutoRunChanges();
             App.Setting.Save();
         }
 
@@ -95,6 +101,29 @@ namespace SambatWidget.UI.ViewModels
             App.Setting.TimeZone = SelectedTimeZone;
             App.Setting.ShowTimeZoneOffset = ShowTimeZoneOffset;
         }
+
+        private void SaveAutoRunChanges()
+        {
+            bool operationSucceeded = AutoRunAtStartup
+                ? AppHelpers.EnableAutoStartAtStartup()
+                : AppHelpers.DisableAutoStartAtStartup();
+
+            if (!operationSucceeded)
+            {
+                RefreshAutoRunHealth();
+            }
+
+            App.Setting.AutoRunAtStartup = AutoRunAtStartup;
+            RefreshAutoRunHealth();
+        }
+
+        private void RefreshAutoRunHealth()
+        {
+            var health = AppHelpers.GetAutoStartHealth();
+            AutoRunAtStartup = health.IsEnabled;
+            AutoRunHealthMessage = health.Message;
+        }
+
         public async Task GetTimeZonesAsync()
         {
             var timeZones = await WorldClock.GetTimeZonesAsync();

@@ -75,7 +75,11 @@
             Command="{Binding WidgetContextMenuViewModel.ToggleAutoRunAtStartupCommand}"
             Header="Autorun at startup"
             IsCheckable="True"
-            IsChecked="{Binding WidgetContextMenuViewModel.AutoRunAtStartup}" />
+            IsChecked="{Binding WidgetContextMenuViewModel.AutoRunAtStartup}"
+            ToolTip="{Binding WidgetContextMenuViewModel.AutoRunHealthMessage}" />
+        <MenuItem
+            Header="{Binding WidgetContextMenuViewModel.AutoRunHealthMessage}"
+            IsEnabled="False" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowSettingCommand}" Header="Settings" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ShowTimeZoneSettingCommand}" Header="Timezone Settings - Quick" />
         <MenuItem Command="{Binding WidgetContextMenuViewModel.ExitCommand}" Header="Exit" />
